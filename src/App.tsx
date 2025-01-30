@@ -1,19 +1,17 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import TestRequests from "./components/TestRequests"
+import NavBar from "./components/ui/NavBar"
+import RegisterComponent from "./components/auth/RegisterComponent"
 
 const queryClient = new QueryClient()
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="bg-indigo-900 py-8 min-h-screen">
-        <div className="flex justify-center">
-          <p className="font-bold text-gray-50">
-            Navbar goes here
-          </p>
-        </div>
-        <TestRequests/>
+      <div className="bg-base-200 pb-8 min-h-screen">
+        <NavBar/>
+        <RegisterComponent/>
       </div>
+
     </QueryClientProvider>
   )};
 
