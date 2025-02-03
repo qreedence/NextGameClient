@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { ApiError, AuthService, LoginDTO } from "../../apiclient";
+import { ApiError, AuthService, LoginDTO, OpenAPI } from "../../apiclient";
 import Input from "../ui/Input";
 import { LockKeyhole, User } from "lucide-react";
 import AlertError from "../ui/AlertError";
 
 const LoginComponent = () => {
+    OpenAPI.WITH_CREDENTIALS = true;
     const [loginDTO, setLoginDTO] = useState<LoginDTO>({ 
             userNameOrEmail: "", 
             password: "",
