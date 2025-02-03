@@ -3,6 +3,7 @@ import { ApiError, AuthService, LoginDTO, OpenAPI } from "../../apiclient";
 import Input from "../ui/Input";
 import { LockKeyhole, User } from "lucide-react";
 import AlertError from "../ui/AlertError";
+import { Link } from "react-router-dom";
 
 const LoginComponent = () => {
     OpenAPI.WITH_CREDENTIALS = true;
@@ -97,7 +98,7 @@ const LoginComponent = () => {
                   </button> 
                 : <button type="submit" onClick={handleSubmit} className="btn btn-neutral mt-4">Log in</button>
             }
-            <p className="text-center">Don't have an account yet? Create one <a className="link link-hover font-bold" href="#">here.</a></p>
+            <p className="text-center">Don't have an account yet? Create one <Link className="link link-hover font-bold" to="/register">here.</Link></p>
         </fieldset>
     </form>
     )

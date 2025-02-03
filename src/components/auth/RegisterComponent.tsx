@@ -6,6 +6,7 @@ import AlertSuccess from "../ui/AlertSuccess";
 import FormValidationIcon from "../ui/FormValidationIcon";
 import { validationService } from "../../services/validationService";
 import Input from "../ui/Input";
+import { Link } from "react-router-dom";
 
 const RegisterComponent = () => {
     const [registerDTO, setRegisterDTO] = useState<RegisterDTO>({ 
@@ -115,7 +116,7 @@ const RegisterComponent = () => {
                       </button> 
                     : <button type="submit" onClick={handleSubmit} className="btn btn-neutral mt-4">Register</button>
                 }
-                <p className="text-center">Already have an account? Log in <a className="link link-hover font-bold" href="#">here.</a></p>
+                <p className="text-center">Already have an account? Log in <Link className="link link-hover font-bold" to="/login">here.</Link></p>
             </fieldset>
         </form>
     )};
