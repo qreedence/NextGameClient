@@ -8,4 +8,13 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-})
+  server: {
+    https: {
+      key: './src/ssl/localhost+2-key.pem',
+      cert: './src/ssl/localhost+2.pem'
+    },
+    host: 'localhost',
+    port: 5173,
+    }
+  }
+)
