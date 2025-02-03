@@ -4,9 +4,12 @@ import Input from "../ui/Input";
 import { LockKeyhole, User } from "lucide-react";
 import AlertError from "../ui/AlertError";
 import { Link } from "react-router-dom";
+import { useStore } from "../../stores/useStore";
 
 const LoginComponent = () => {
     OpenAPI.WITH_CREDENTIALS = true;
+    const {checkAuthentication} = useStore();
+
     const [loginDTO, setLoginDTO] = useState<LoginDTO>({ 
             userNameOrEmail: "", 
             password: "",
@@ -35,8 +38,9 @@ const LoginComponent = () => {
             setLoading(true);
             try {
                 await AuthService.loginUser(loginDTO);
-              setLoginDTO({ userNameOrEmail: "", password: "", rememberMe: false });
-              setSuccess(true);
+                setLoginDTO({ userNameOrEmail: "", password: "", rememberMe: false });
+                setSuccess(true);
+                checkAuthentication();
             } catch (err) {
                 if (err instanceof ApiError && err.body) {
                     const errorMessages = err.body.map((e: { description: string }) => e.description);
@@ -56,7 +60,7 @@ const LoginComponent = () => {
                     <Input
                         id={"userNameOrEmail"}
                         icon={<User className="mb-2.5"/>}
-                        label={"Username"}
+                        label={"Username or email"}
                         type={"text"}
                         value={loginDTO.userNameOrEmail}
                         onChange={(e) =>
@@ -94,7 +98,7 @@ const LoginComponent = () => {
             {loading === true && !success 
                 ? <button disabled className="btn btn-neutral mt-4">
                     <span className="loading loading-spinner"></span>
-                        Registering
+                        Logging in
                   </button> 
                 : <button type="submit" onClick={handleSubmit} className="btn btn-neutral mt-4">Log in</button>
             }

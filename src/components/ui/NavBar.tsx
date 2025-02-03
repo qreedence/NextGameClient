@@ -1,13 +1,18 @@
 import { Link } from "react-router-dom";
+import { useStore } from "../../stores/useStore";
 
 const NavBar = () => {
+    const {isAuthenticated} = useStore();
+
     return (
     <div className="navbar bg-base-100 shadow-sm">
         <div className="flex-1">
             <Link to="/" className="btn btn-ghost text-xl">Home</Link>
         </div>
         <div className="flex gap-2">
-        <Link to="/login" className="btn btn-neutral text-xl font-bold">Log in</Link>
+        {isAuthenticated ? (
+            <button className="btn btn-neutral">Log out</button>
+        ) : <Link to="/login" className="btn btn-neutral text-xl font-bold">Log in</Link>}
             {/* <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
             <div className="dropdown dropdown-end">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
