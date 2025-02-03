@@ -29,13 +29,17 @@ export class AuthService {
         });
     }
     /**
+     * Allows a user to log out
      * @returns any OK
      * @throws ApiError
      */
-    public static postApiAuthLogout(): CancelablePromise<any> {
+    public static logoutUser(): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/auth/logout',
+            errors: {
+                400: `Bad Request`,
+            },
         });
     }
     /**
@@ -54,6 +58,20 @@ export class AuthService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+            },
+        });
+    }
+    /**
+     * Pings the server to check if the user is authorized.
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static ping(): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/auth/ping',
+            errors: {
+                401: `Unauthorized`,
             },
         });
     }
