@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useStore } from "../../stores/useStore";
+import LogoutComponent from "../auth/LogoutComponent";
 
 const NavBar = () => {
     const {isAuthenticated} = useStore();
@@ -11,7 +12,7 @@ const NavBar = () => {
         </div>
         <div className="flex gap-2">
         {isAuthenticated ? (
-            <button className="btn btn-neutral">Log out</button>
+            <LogoutComponent/>
         ) : <Link to="/login" className="btn btn-neutral text-xl font-bold">Log in</Link>}
             {/* <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
             <div className="dropdown dropdown-end">
