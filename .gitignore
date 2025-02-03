@@ -25,3 +25,4 @@ dist-ssr
 
 # ApiSpec
 v1.json
+*.pem

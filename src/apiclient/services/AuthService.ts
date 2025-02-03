@@ -2,19 +2,30 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { LoginDTO } from '../models/LoginDTO';
 import type { RegisterDTO } from '../models/RegisterDTO';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class AuthService {
     /**
+     * Allows a user to log in with credentials provided
+     * @param requestBody
      * @returns any OK
      * @throws ApiError
      */
-    public static postApiAuthLogin(): CancelablePromise<any> {
+    public static loginUser(
+        requestBody: LoginDTO,
+    ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/auth/login',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+            },
         });
     }
     /**
@@ -41,6 +52,9 @@ export class AuthService {
             url: '/api/auth/register',
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+            },
         });
     }
 }

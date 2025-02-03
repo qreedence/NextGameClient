@@ -15,7 +15,7 @@ interface InputFieldProps {
     return (
         <div className="flex flex-row items-end gap-2">
             {icon}
-            <div className="flex flex-col gap-2 w-4/5 ">
+            <div className="flex flex-col gap-2 w-full ">
                 <label className="fieldset-label font-bold text-md" htmlFor={id}>
                     {label}
                 </label>
