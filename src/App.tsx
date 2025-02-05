@@ -6,6 +6,9 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import { useStore } from "./stores/useStore"
 import { useEffect } from "react"
+import Privacy from "./pages/Privacy"
+import TermsOfService from "./pages/TermsOfService"
+import ExternalToken from "./pages/ExternalToken"
 
 const queryClient = new QueryClient()
 
@@ -28,6 +31,9 @@ function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
+        <Route path="/privacy" element={<Privacy/>}/>
+        <Route path="/termsofservice" element={<TermsOfService/>}/>
+        <Route path="/login/external/" element={<ExternalToken/>}/>
       </Routes>
       </div>
 

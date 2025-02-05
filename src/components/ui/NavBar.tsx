@@ -1,9 +1,19 @@
 import { Link } from "react-router-dom";
 import { useStore } from "../../stores/useStore";
 import LogoutComponent from "../auth/LogoutComponent";
+import { AuthService } from "../../apiclient";
+import { useEffect, useState } from "react";
 
 const NavBar = () => {
     const {isAuthenticated} = useStore();
+    const [name, setName] = useState<string>("");
+    const getName = async () => {
+        setName(await AuthService.getUserName());
+    }
+
+    useEffect(() => {
+        getName();
+    })
 
     return (
     <div className="navbar bg-base-100 shadow-sm">
@@ -11,6 +21,7 @@ const NavBar = () => {
             <Link to="/" className="btn btn-ghost text-xl">Home</Link>
         </div>
         <div className="flex gap-2">
+            <p>{name}</p>
         {isAuthenticated ? (
             <LogoutComponent/>
         ) : <Link to="/login" className="btn btn-neutral text-xl font-bold">Log in</Link>}
