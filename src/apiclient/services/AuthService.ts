@@ -29,6 +29,63 @@ export class AuthService {
         });
     }
     /**
+     * Start a sign-in process through external login provider.
+     * @param loginProvider
+     * @param returnUrl
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static externalLogin(
+        loginProvider?: string,
+        returnUrl?: string,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/auth/external-login',
+            query: {
+                'loginProvider': loginProvider,
+                'returnUrl': returnUrl,
+            },
+        });
+    }
+    /**
+     * Handles the response from external login provider after a sign-in attempt.
+     * @param returnUrl
+     * @param remoteError
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static externalAuthCallback(
+        returnUrl?: string,
+        remoteError?: string,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/auth/external-auth-callback',
+            query: {
+                'returnUrl': returnUrl,
+                'remoteError': remoteError,
+            },
+        });
+    }
+    /**
+     * Handles the exchange of an token id to sign in a user that used an external login provider.
+     * @param tokenId
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static externalAuthComplete(
+        tokenId?: string,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/auth/external-auth-complete',
+            query: {
+                'tokenId': tokenId,
+            },
+        });
+    }
+    /**
      * Allows a user to log out
      * @returns any OK
      * @throws ApiError
@@ -70,6 +127,20 @@ export class AuthService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/auth/ping',
+            errors: {
+                401: `Unauthorized`,
+            },
+        });
+    }
+    /**
+     * Gets the name of the logged in user.
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static getUserName(): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/auth/get-user-name',
             errors: {
                 401: `Unauthorized`,
             },
