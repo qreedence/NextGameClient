@@ -5,6 +5,7 @@ import { LockKeyhole, User } from "lucide-react";
 import AlertError from "../ui/AlertError";
 import { Link } from "react-router-dom";
 import { useStore } from "../../stores/useStore";
+import GoogleLoginButton from "./GoogleLoginButton";
 
 const LoginComponent = () => {
     OpenAPI.WITH_CREDENTIALS = true;
@@ -54,57 +55,62 @@ const LoginComponent = () => {
           };
 
     return (
-        <form>
-            <fieldset className="fieldset w-md bg-base-200 border border-base-300 p-4 rounded-box">
-                <legend className="fieldset-legend text-xl font-bold">Log in</legend>
-                    <Input
-                        id={"userNameOrEmail"}
-                        icon={<User className="mb-2.5"/>}
-                        label={"Username or email"}
-                        type={"text"}
-                        value={loginDTO.userNameOrEmail}
-                        onChange={(e) =>
-                            setLoginDTO((prev) => ({...prev, userNameOrEmail: e.target.value,}))}
-                        />
-                    <Input
-                        id={"password"}
-                        icon={<LockKeyhole className="mb-2.5"/>}
-                        label={"Password"}
-                        type={"password"}
-                        value={loginDTO.password}
-                        onChange={(e) =>
-                            setLoginDTO((prev) => ({...prev, password: e.target.value,}))}
-                        />
-                    
-                    <div className="flex items-center gap-2 mx-auto my-2">
-                        <input
-                            id="rememberMe"
-                            type="checkbox"
-                            checked={loginDTO.rememberMe}
+        <div>
+            <div className="fieldset w-md bg-base-100 border border-base-300 p-4 rounded-box">
+                <form>
+                    <legend className="fieldset-legend text-xl font-bold">Log in</legend>
+                        <Input
+                            id={"userNameOrEmail"}
+                            icon={<User className="mb-2.5"/>}
+                            label={"Username or email"}
+                            type={"text"}
+                            value={loginDTO.userNameOrEmail}
                             onChange={(e) =>
-                                setLoginDTO((prev) => ({
-                                    ...prev,
-                                    rememberMe: e.target.checked,
-                                }))
-                            }
-                            className="checkbox checkbox-neutral"
-                        />
-                        <label htmlFor="rememberMe">Remember me?</label>
-                    </div>
-                    
-            {errors.length > 0 && (
-                <AlertError errorMessages={errors}/>
-            )}
-            {loading === true && !success 
-                ? <button disabled className="btn btn-neutral mt-4">
-                    <span className="loading loading-spinner"></span>
-                        Logging in
-                  </button> 
-                : <button type="submit" onClick={handleSubmit} className="btn btn-neutral mt-4">Log in</button>
-            }
+                                setLoginDTO((prev) => ({...prev, userNameOrEmail: e.target.value,}))}
+                            />
+                        <Input
+                            id={"password"}
+                            icon={<LockKeyhole className="mb-2.5"/>}
+                            label={"Password"}
+                            type={"password"}
+                            value={loginDTO.password}
+                            onChange={(e) =>
+                                setLoginDTO((prev) => ({...prev, password: e.target.value,}))}
+                            />
+                        
+                        <div className="flex items-center justify-center gap-2 mx-auto mt-4">
+                            <input
+                                id="rememberMe"
+                                type="checkbox"
+                                checked={loginDTO.rememberMe}
+                                onChange={(e) =>
+                                    setLoginDTO((prev) => ({
+                                        ...prev,
+                                        rememberMe: e.target.checked,
+                                    }))
+                                }
+                                className="checkbox checkbox-neutral"
+                            />
+                            <label htmlFor="rememberMe">Remember me?</label>
+                        </div>
+                        
+                {errors.length > 0 && (
+                    <AlertError errorMessages={errors}/>
+                )}
+                {loading === true && !success 
+                    ? <button disabled className="btn btn-neutral w-full mt-4">
+                        <span className="loading loading-spinner"></span>
+                            Logging in
+                    </button> 
+                    : <button type="submit" onClick={handleSubmit} className="btn btn-neutral w-full mt-4">Log in</button>
+                }
+                </form>
             <p className="text-center">Don't have an account yet? Create one <Link className="link link-hover font-bold" to="/register">here.</Link></p>
-        </fieldset>
-    </form>
+            <div className="divider">OR</div>
+            <GoogleLoginButton/>
+        </div>
+
+    </div>
     )
 }
 

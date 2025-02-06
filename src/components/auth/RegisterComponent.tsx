@@ -63,7 +63,7 @@ const RegisterComponent = () => {
     
     return (
         <form>
-            <fieldset className="fieldset w-md bg-base-200 border border-base-300 p-4 rounded-box">
+            <fieldset className="fieldset w-md bg-base-100 border border-base-300 p-4 rounded-box">
                 <legend className="fieldset-legend text-xl font-bold">Register</legend>
                         <Input
                             id={"username"}

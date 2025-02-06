@@ -21,9 +21,12 @@ const NavBar = () => {
             <Link to="/" className="btn btn-ghost text-xl">Home</Link>
         </div>
         <div className="flex gap-2">
-            <p>{name}</p>
+            
         {isAuthenticated ? (
-            <LogoutComponent/>
+            <div className="flex items-center gap-4">
+                <p>{name}</p>
+                <LogoutComponent/>
+            </div>
         ) : <Link to="/login" className="btn btn-neutral text-xl font-bold">Log in</Link>}
             {/* <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
             <div className="dropdown dropdown-end">

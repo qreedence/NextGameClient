@@ -3,7 +3,7 @@ const GoogleLoginButton = () => {
         <form method='POST' action={`https://localhost:7145/api/auth/external-login?loginProvider=Google&returnUrl=https://localhost:5173`} >
             <button
                 type="submit"
-                className="btn bg-white text-black border-[#e5e5e5] flex items-center">
+                className="btn bg-white text-black border-[#e5e5e5] flex items-center w-full">
             <svg
                 aria-label="Google logo"
                 width="16"
