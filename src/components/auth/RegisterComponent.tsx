@@ -107,7 +107,7 @@ const RegisterComponent = () => {
                     <AlertError errorMessages={errors}/>
                 )}
                 {success && (
-                    <AlertSuccess successMessage={"Successfully registered. You can now "} url="https://localhost:5173/" linkText="log in."/>
+                    <AlertSuccess successMessage={"Successfully registered. You can now "} url="https://localhost:5173/login" linkText="log in."/>
                 )}
                 {loading === true && !success 
                     ? <button disabled className="btn btn-neutral mt-4">
