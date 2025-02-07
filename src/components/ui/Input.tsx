@@ -22,12 +22,13 @@ interface InputFieldProps {
                 <input
                     type={type}
                     id={id}
-                    placeholder={label}
                     value={value}
                     onChange={onChange}
+                    placeholder={type === "password" ? undefined : label}
                     className="input w-full"
                     required
                     pattern={pattern}
+                    name={id}
                 />
             </div>
             {validationIcon}

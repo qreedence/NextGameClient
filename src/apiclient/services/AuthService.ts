@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { LoginDTO } from '../models/LoginDTO';
 import type { RegisterDTO } from '../models/RegisterDTO';
+import type { UserProfileDTO } from '../models/UserProfileDTO';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -134,13 +135,13 @@ export class AuthService {
     }
     /**
      * Gets the name of the logged in user.
-     * @returns any OK
+     * @returns UserProfileDTO OK
      * @throws ApiError
      */
-    public static getUserName(): CancelablePromise<any> {
+    public static getUserProfile(): CancelablePromise<UserProfileDTO> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/auth/get-user-name',
+            url: '/api/auth/get-user-profile',
             errors: {
                 401: `Unauthorized`,
             },

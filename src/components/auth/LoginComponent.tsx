@@ -9,7 +9,7 @@ import GoogleLoginButton from "./GoogleLoginButton";
 
 const LoginComponent = () => {
     OpenAPI.WITH_CREDENTIALS = true;
-    const {checkAuthentication, isAuthenticated} = useStore();
+    const {checkAuthentication, isAuthenticated, getUserProfile} = useStore();
     const navigate = useNavigate();
 
     const [loginDTO, setLoginDTO] = useState<LoginDTO>({ 
@@ -56,20 +56,21 @@ const LoginComponent = () => {
 
     useEffect(() => {
         if (isAuthenticated){
+            getUserProfile();
             setSuccess(true);
             navigate("/");
         }
         else{
             setLoading(false);
         }
-    },[setSuccess, isAuthenticated, navigate])
+    },[setSuccess, isAuthenticated, navigate, getUserProfile])
 
 
     if (!isAuthenticated){
         return (
             <div>
                 <div className="fieldset w-md bg-base-100 border border-base-300 p-4 rounded-box">
-                    <form>
+                    <form name="loginForm">
                         <legend className="fieldset-legend text-xl font-bold">Log in</legend>
                             <Input
                                 id={"userNameOrEmail"}
