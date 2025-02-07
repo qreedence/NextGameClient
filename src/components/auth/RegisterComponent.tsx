@@ -63,7 +63,7 @@ const RegisterComponent = () => {
     
     return (
         <form>
-            <fieldset className="fieldset w-md bg-base-200 border border-base-300 p-4 rounded-box">
+            <fieldset className="fieldset w-md bg-base-100 border border-base-300 p-4 rounded-box">
                 <legend className="fieldset-legend text-xl font-bold">Register</legend>
                         <Input
                             id={"username"}
@@ -107,7 +107,7 @@ const RegisterComponent = () => {
                     <AlertError errorMessages={errors}/>
                 )}
                 {success && (
-                    <AlertSuccess successMessage={"Successfully registered. You can now "} url="https://localhost:5173/" linkText="log in."/>
+                    <AlertSuccess successMessage={"Successfully registered. You can now "} url="https://localhost:5173/login" linkText="log in."/>
                 )}
                 {loading === true && !success 
                     ? <button disabled className="btn btn-neutral mt-4">

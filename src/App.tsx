@@ -7,21 +7,25 @@ import Register from "./pages/Register"
 import { useStore } from "./stores/useStore"
 import { useEffect } from "react"
 import Privacy from "./pages/Privacy"
+import Settings from "./pages/Settings"
 import TermsOfService from "./pages/TermsOfService"
 import ExternalToken from "./pages/ExternalToken"
 
 const queryClient = new QueryClient()
 
 function App() {
-  const { checkAuthentication } = useStore();
+  const { checkAuthentication, isAuthenticated, getUserProfile } = useStore();
 
   useEffect(() => {
     const fetchAuthStatus = async () => {
         await checkAuthentication();
+        if (isAuthenticated){
+          await getUserProfile();
+        }
     };
 
     fetchAuthStatus();
-}, [checkAuthentication]);
+}, [checkAuthentication, isAuthenticated, getUserProfile]);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -30,6 +34,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/login" element={<Login/>}/>
+        <Route path="/settings" element={<Settings/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/privacy" element={<Privacy/>}/>
         <Route path="/termsofservice" element={<TermsOfService/>}/>
