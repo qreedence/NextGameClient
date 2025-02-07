@@ -11,7 +11,7 @@ const NavBar = () => {
         </div>
         <div className="flex gap-2">
             
-        {userProfile && isAuthenticated ? (
+        {isAuthenticated && userProfile ? (
             <div className="flex items-center gap-4">
                 <p className="text-lg font-semibold">{userProfile.userName}</p>
                 <NavBarDropdown/>

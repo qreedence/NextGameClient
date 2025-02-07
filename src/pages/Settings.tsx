@@ -1,11 +1,20 @@
-import AccountSettings from "../components/settings/AccountSettings";
+// import AccountSettings from "../components/settings/AccountSettings";
 import ChangePassword from "../components/settings/ChangePassword";
-import SetSocialAccounts from "../components/settings/SetSocialAccounts";
+// import SetSocialAccounts from "../components/settings/SetSocialAccounts";
 import ProfileSettings from "../components/settings/ProfileSettings";
 import { useStore } from "../stores/useStore";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Settings = () => {
-    const {userProfile} = useStore();
+    const {isAuthenticated, userProfile} = useStore();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!isAuthenticated){
+            navigate("/login");
+        }
+    })
 
     if(!userProfile){
         return(
@@ -23,7 +32,7 @@ const Settings = () => {
                    <ProfileSettings/>
                 </div>
     
-                <input type="radio" name="tabs" className="tab" aria-label="Account Settings"/>
+                {/* <input type="radio" name="tabs" className="tab" aria-label="Account Settings"/>
                 <div className="tab-content border-base-300 bg-base-100 p-10">
                     <AccountSettings/>
                 </div>
@@ -31,7 +40,7 @@ const Settings = () => {
                 <input type="radio" name="tabs" className="tab" aria-label="Set Social Accounts"/>
                 <div className="tab-content border-base-300 bg-base-100 p-10">
                     <SetSocialAccounts/>
-                </div>
+                </div> */}
     
     
                 <input type="radio" name="tabs" className="tab" aria-label={userProfile.hasPassword ? "Change Password" : "Set Password"}/>
