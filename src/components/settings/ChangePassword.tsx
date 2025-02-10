@@ -1,14 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
 import { ApiError, ChangePasswordDTO, SettingsService } from "../../apiclient";
-import { useStore } from "../../stores/useStore";
 import { useState } from "react";
 import Input from "../ui/Input";
 import { validationService } from "../../services/validationService";
 import AlertError from "../ui/AlertError";
 import { Check } from "lucide-react";
+import useAuth from "../../services/useAuth";
 
 const ChangePassword = () => {
-    const {userProfile, getUserProfile} = useStore();
+    const {userProfile, invalidateUserProfile} = useAuth();
     const [changePasswordDTO, setChangePasswordDTO] = useState<ChangePasswordDTO>({
         oldPassword: "",
         newPassword: "",
@@ -24,7 +24,7 @@ const ChangePassword = () => {
             return SettingsService.changePassword(updatedPassword);   
         },
         onSuccess: async () => {
-            await getUserProfile();
+            invalidateUserProfile();
             setSuccess(true);
             setChangePasswordDTO({oldPassword: "", newPassword: ""});
             setConfirmNewPassword("");

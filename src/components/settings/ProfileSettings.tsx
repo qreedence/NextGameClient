@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useStore } from "../../stores/useStore";
 import { UserSettingsDTO } from "../../apiclient/models/UserSettingsDTO";
 import { SettingsService } from "../../apiclient/services/SettingsService";
 import { useEffect, useState } from "react";
@@ -7,7 +6,6 @@ import Input from "../ui/Input";
 
 const ProfileSettings = () => {
     const queryClient = useQueryClient();
-    const {getUserProfile} = useStore();
     const {data: initialUserSettingsDTO, isLoading} = useQuery<UserSettingsDTO, Error>({
         queryKey: ["settings"],
         queryFn: async () => {
@@ -29,7 +27,7 @@ const ProfileSettings = () => {
         onSuccess: async (data) => {
             queryClient.invalidateQueries({queryKey: ["settings"]});
             setUserSettingsDTO(data);
-            await getUserProfile();
+            queryClient.invalidateQueries({queryKey: ["currentUserProfile"]});
         },
         onError: (error) =>{
             console.error("Error updating settings:", error);

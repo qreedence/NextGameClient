@@ -1,53 +1,22 @@
 import { create } from "zustand";
-import { AuthService } from "../apiclient";
+import { UserProfileDTO, UserSettingsDTO } from "../apiclient";
 
 interface Store {
     isAuthenticated: boolean;
-    checkAuthentication: () => Promise<void>;
-    userProfile: UserProfile | null;
-    getUserProfile: () => Promise<void>;
+    userProfile: UserProfileDTO | null;
+    userSettings: UserSettingsDTO | null;
+
+    setAuthenticated: (isAuthenticated: boolean) => void;
+    setUserProfile: (userProfile: UserProfileDTO) => void;
+    setUserSettings: (userSettings: UserSettingsDTO) => void;
 }
 
 export const useStore = create<Store>((set) => ({
-    isAuthenticated: false,
-    checkAuthentication: async () => {
-        try {
-            const isAuth = await AuthService.ping();
-            set({ isAuthenticated: isAuth });
-        } catch (err) {
-            console.error("Error checking authentication: ", err);
-            set({isAuthenticated: false});
-        }
-    },
-    userProfile: null,
-    getUserProfile: async () => {
-        // try {
-        //     const profile = await AuthService.getUserProfile();
-        //         set((state) => ({
-        //             userProfile: { ...state.userProfile, userName: profile.userName, hasPassword: profile.hasPassword },
-        //           }));
-        // } catch(err){
-        //     console.error("Error: ", err);
-        // }
+  isAuthenticated: false,
+  userProfile: null,
+  userSettings: null,
 
-        try {
-            const profile = await AuthService.getUserProfile();
-            set(() => ({
-              userProfile: {
-                userName: profile.userName,
-                avatar: profile.avatar || "",
-                hasPassword: profile.hasPassword,
-              },
-            }));
-          } catch (err) {
-            console.error("Error: ", err);
-            set({ userProfile: null }); // Set to null on error
-          }
-        },
-      }));
-
-export type UserProfile = {
-    userName: string,
-    avatar: string,
-    hasPassword: boolean,
-}
+  setAuthenticated: (isAuthenticated: boolean) => set({isAuthenticated}),
+  setUserProfile: (userProfile: UserProfileDTO) => set({userProfile}),
+  setUserSettings: (userSettings: UserSettingsDTO) => set({userSettings}),
+}));

@@ -4,28 +4,16 @@ import { Route, Routes } from "react-router-dom"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
-import { useStore } from "./stores/useStore"
-import { useEffect } from "react"
 import Privacy from "./pages/Privacy"
 import Settings from "./pages/Settings"
 import TermsOfService from "./pages/TermsOfService"
 import ExternalToken from "./pages/ExternalToken"
+import RedirectLoggedIn from "./components/auth/RedirectLoggedIn"
+import RedirectLoggedOut from "./components/auth/RedirectLoggedOut"
 
 const queryClient = new QueryClient()
 
 function App() {
-  const { checkAuthentication, isAuthenticated, getUserProfile } = useStore();
-
-  useEffect(() => {
-    const fetchAuthStatus = async () => {
-        await checkAuthentication();
-        if (isAuthenticated){
-          await getUserProfile();
-        }
-    };
-
-    fetchAuthStatus();
-}, [checkAuthentication, isAuthenticated, getUserProfile]);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -33,15 +21,19 @@ function App() {
       <NavBar/>
       <Routes>
         <Route path="/" element={<Home/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/settings" element={<Settings/>}/>
-        <Route path="/register" element={<Register/>}/>
         <Route path="/privacy" element={<Privacy/>}/>
         <Route path="/termsofservice" element={<TermsOfService/>}/>
         <Route path="/login/external/" element={<ExternalToken/>}/>
+        <Route element={<RedirectLoggedIn/>}>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/register" element={<Register/>}/>
+        </Route>
+        <Route element={<RedirectLoggedOut/>}>
+          <Route path="/settings" element={<Settings/>}/>
+        </Route>
+
       </Routes>
       </div>
-
     </QueryClientProvider>
   )};
 

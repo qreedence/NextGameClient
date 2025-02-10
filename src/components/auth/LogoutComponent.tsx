@@ -1,14 +1,13 @@
 import { LogOut } from "lucide-react";
-import { AuthService } from "../../apiclient/services/AuthService";
-import { useStore } from "../../stores/useStore";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../services/useAuth";
 
 const LogoutComponent = () => {
-    const {checkAuthentication} = useStore();
     const navigate = useNavigate();
+    const {logout} = useAuth();
+    
     const handleClick = async () => {
-        await AuthService.logoutUser();
-        checkAuthentication();
+        logout();
         navigate("/");
     }
 
