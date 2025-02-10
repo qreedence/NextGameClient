@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import LogoutComponent from "../auth/LogoutComponent";
 import { Settings } from "lucide-react";
-import { useStore } from "../../stores/useStore";
+import useAuth from "../../services/useAuth";
 
 const NavBarDropdown = () => {
-const {userProfile} = useStore();
+const {userProfile} = useAuth();
 
     return (
         <div className="dropdown dropdown-end">

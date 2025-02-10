@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
-import { ApiError, AuthService, LoginDTO, OpenAPI } from "../../apiclient";
+import { ApiError, LoginDTO, OpenAPI } from "../../apiclient";
 import Input from "../ui/Input";
 import { LockKeyhole, User } from "lucide-react";
 import AlertError from "../ui/AlertError";
 import { Link, useNavigate } from "react-router-dom";
-import { useStore } from "../../stores/useStore";
 import GoogleLoginButton from "./GoogleLoginButton";
+import useAuth from "../../services/useAuth";
 
 const LoginComponent = () => {
     OpenAPI.WITH_CREDENTIALS = true;
-    const {checkAuthentication, isAuthenticated, getUserProfile} = useStore();
+    const {isAuthenticated, login} = useAuth();
     const navigate = useNavigate();
-
     const [loginDTO, setLoginDTO] = useState<LoginDTO>({ 
             userNameOrEmail: "", 
             password: "",
@@ -19,7 +18,7 @@ const LoginComponent = () => {
         });
 
     const [errors, setErrors] = useState<string[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
 
      const handleSubmit = async (e: React.FormEvent) => {
@@ -39,8 +38,9 @@ const LoginComponent = () => {
         
             setLoading(true);
             try {
-                await AuthService.loginUser(loginDTO);
+                login(loginDTO);
                 setLoginDTO({ userNameOrEmail: "", password: "", rememberMe: false });
+                setSuccess(true);
             } catch (err) {
                 if (err instanceof ApiError && err.body) {
                     const errorMessages = err.body.map((e: { description: string }) => e.description);
@@ -49,23 +49,20 @@ const LoginComponent = () => {
                     setErrors(["Something went wrong. Please try again."]); 
                 }
             } finally {
-                await checkAuthentication();
                 setLoading(false);
             }
           };
 
     useEffect(() => {
-        if (isAuthenticated){
-            getUserProfile();
-            setSuccess(true);
+        if (success){
             navigate("/");
         }
-        else{
-            setLoading(false);
-        }
-    },[setSuccess, isAuthenticated, navigate, getUserProfile])
+    })
 
-
+    if (isAuthenticated) {
+        return null;    
+      }
+    
     if (!isAuthenticated){
         return (
             <div>
@@ -125,10 +122,6 @@ const LoginComponent = () => {
         </div>
         )
     }
-    
-    return(
-        <></>
-    )
 }
 
 export default LoginComponent;

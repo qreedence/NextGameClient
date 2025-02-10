@@ -1,17 +1,17 @@
-// import AccountSettings from "../components/settings/AccountSettings";
 import ChangePassword from "../components/settings/ChangePassword";
-// import SetSocialAccounts from "../components/settings/SetSocialAccounts";
 import ProfileSettings from "../components/settings/ProfileSettings";
-import { useStore } from "../stores/useStore";
+import useAuth from "../services/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const Settings = () => {
-    const {isAuthenticated, userProfile} = useStore();
+    const {isAuthenticated, userProfile} = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!isAuthenticated){
+        console.log("Is Authenticated: ", isAuthenticated);
+        if (isAuthenticated === false){
+            console.log("redirecting");
             navigate("/login");
         }
     })

@@ -1,30 +1,27 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { AuthService } from "../apiclient";
-import { useStore } from "../stores/useStore";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../services/useAuth";
 
 const ExternalToken = () => {
-    const location = useLocation();
+    const navigate = useNavigate();
     const queryParams = new URLSearchParams(location.search);
     const token = queryParams.get('token');
-    const {isAuthenticated, checkAuthentication} = useStore();
+    const {isAuthenticated, externalAuthComplete} = useAuth();
 
     useEffect(() => {
         const handleLogin = async () => {
             if (token) {
-                await AuthService.externalAuthComplete(token);
-                await checkAuthentication();
+                externalAuthComplete(token);
                 if (isAuthenticated){
-                    window.location.replace("https://localhost:5173/");
+                    navigate("/");
                 }
             }
         };
         handleLogin();
-    },[token, isAuthenticated, checkAuthentication]);
+    },[token, isAuthenticated, externalAuthComplete, navigate]);
 
     return (
-        <div>
-        </div>
+        <></>
     )
 }
 
