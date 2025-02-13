@@ -8,7 +8,6 @@ import { useEffect } from "react";
 const useAuth = () => {
     const queryClient = useQueryClient();
     const {isAuthenticated: storedIsAuthenticated, setAuthenticated} = useStore();
-    // const [isAuthChecked, setIsAuthChecked] = useState<boolean>(false);
 
     //fetch data for isAuthenticated
     const {data: isAuthenticated} = useQuery<boolean, Error>({
@@ -32,6 +31,7 @@ const useAuth = () => {
                 return await AuthService.getUserProfile();
         },
         enabled: isAuthenticated === true,
+        staleTime: 0,
     });
 
     // //update store, maybe remove this
@@ -89,7 +89,11 @@ const useAuth = () => {
         });
     
     const invalidateUserProfile = () => {
-        queryClient.invalidateQueries({queryKey: ["userProfile"]});
+        queryClient.invalidateQueries({queryKey: ["currentUserProfile"]});
+    }
+
+    const invalidateUserSettings = () => {
+        queryClient.invalidateQueries({queryKey: ["currentUserSettings"]});
     }
     
     return {
@@ -100,7 +104,8 @@ const useAuth = () => {
         login,
         logout,
         externalAuthComplete,
-        invalidateUserProfile
+        invalidateUserProfile,
+        invalidateUserSettings
     };
 };
 

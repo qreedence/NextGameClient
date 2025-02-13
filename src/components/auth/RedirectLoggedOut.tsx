@@ -18,9 +18,7 @@ const RedirectLoggedOut = () => {
     if (isAuthenticated !== undefined && isAuthenticated){
         return <Outlet/>
     }
-
     return <></>
-    
 }
 
 export default RedirectLoggedOut;

@@ -1,31 +1,38 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { UserSettingsDTO } from "../../apiclient/models/UserSettingsDTO";
 import { SettingsService } from "../../apiclient/services/SettingsService";
 import { useEffect, useState } from "react";
 import Input from "../ui/Input";
+import UploadProfilePicture from "../uploadthing/UploadProfilePicture";
+import useAuth from "../../services/useAuth";
 
 const ProfileSettings = () => {
     const queryClient = useQueryClient();
-    const {data: initialUserSettingsDTO, isLoading} = useQuery<UserSettingsDTO, Error>({
-        queryKey: ["settings"],
-        queryFn: async () => {
-            return SettingsService.getUserSettings();
-        },
-        enabled: true
-    });
+    const { isLoadingSettings, userSettings} = useAuth();
 
-    const [userSettingsDTO, setUserSettingsDTO] = useState<UserSettingsDTO>(initialUserSettingsDTO!);
+
+    // const {data: initialUserSettingsDTO, isLoading} = useQuery<UserSettingsDTO, Error>({
+    //     queryKey: ["settings"],
+    //     queryFn: async () => {
+    //         return SettingsService.getUserSettings();
+    //     },
+    //     enabled: isLoadingIsAuthenticated === false && isAuthenticated === true
+    // });
+
+    const [userSettingsDTO, setUserSettingsDTO] = useState<UserSettingsDTO>(userSettings!);
 
     useEffect(() => {
-        setUserSettingsDTO(initialUserSettingsDTO!);
-      }, [initialUserSettingsDTO]);
+        if (!isLoadingSettings){
+            setUserSettingsDTO(userSettings!);
+        }
+      }, [userSettings, isLoadingSettings]);
 
     const {mutate: updateUserSettings} = useMutation<UserSettingsDTO, Error, UserSettingsDTO>({
         mutationFn: async(updatedSettings: UserSettingsDTO) => {
             return SettingsService.updateUserSettings(updatedSettings);
         },
         onSuccess: async (data) => {
-            queryClient.invalidateQueries({queryKey: ["settings"]});
+            queryClient.invalidateQueries({queryKey: ["currentUserSettings"]});
             setUserSettingsDTO(data);
             queryClient.invalidateQueries({queryKey: ["currentUserProfile"]});
         },
@@ -41,20 +48,27 @@ const ProfileSettings = () => {
         }
       };
 
-    if(isLoading){
+    if(isLoadingSettings){
         <div>
             <span className="loading loading-ring loading-lg"></span>
         </div>
     }
 
-    if (!userSettingsDTO || !initialUserSettingsDTO) {
+    if (!userSettingsDTO || !userSettings) {
         return <p>Error loading settings.</p>;
     }
 
     return (
         <form name="profileSettingsForm" onSubmit={handleSubmit} className="fieldset w-md bg-base-100 border border-base-300 p-4 rounded-box">
-        <p>Avatar Url: {userSettingsDTO.avatar}</p>
-        <Input 
+        <div className="flex items-center gap-8">
+            <div className="avatar">
+                <div className="ring-white ring-offset-black rounded-full ring ring-offset-2 w-24">
+                    <img src={userSettingsDTO.avatar} />
+                </div>
+            </div>
+            <UploadProfilePicture/>
+        </div>
+               <Input 
             id={"username"} 
             label={"Username"} 
             type={"text"} 
@@ -82,8 +96,8 @@ const ProfileSettings = () => {
             </div>
             
         </div>
-        <button type="submit" disabled={isLoading} className="btn btn-neutral">
-            {isLoading ? "Updating..." : "Save Changes"}
+        <button type="submit" disabled={isLoadingSettings} className="btn btn-neutral">
+            {isLoadingSettings ? "Updating..." : "Save Changes"}
         </button>
     </form>
     )

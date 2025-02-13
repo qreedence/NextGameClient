@@ -7,6 +7,6 @@ export type UserSettingsDTO = {
     avatar?: string;
     accountIsPublic?: boolean;
     userName: string;
-    hasPassword: boolean,
+    hasPassword?: boolean;
 };
 

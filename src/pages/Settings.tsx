@@ -9,7 +9,6 @@ const Settings = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("Is Authenticated: ", isAuthenticated);
         if (isAuthenticated === false){
             console.log("redirecting");
             navigate("/login");

@@ -2,9 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type UserProfileDTO = {
-    userName: string;
-    avatar?: string;
-    hasPassword?: boolean;
+export type FileUploadRequest = {
+    lastModified?: number;
+    name?: string;
+    size?: number;
+    type?: string;
 };
 
