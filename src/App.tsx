@@ -11,7 +11,14 @@ import ExternalToken from "./pages/ExternalToken"
 import RedirectLoggedIn from "./components/auth/RedirectLoggedIn"
 import RedirectLoggedOut from "./components/auth/RedirectLoggedOut"
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    }
+  }
+})
 
 function App() {
 

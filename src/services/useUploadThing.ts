@@ -7,7 +7,7 @@ const useUploadThing = () => {
     const queryClient = useQueryClient();
     const {isAuthenticated, isLoadingIsAuthenticated} = useAuth();
     
-    //get endpoint metadata
+    // get endpoint metadata
     const {data: getMetaData} = useQuery({
         queryKey: ["endpointMetadata"],
         queryFn: async () => {
@@ -41,9 +41,6 @@ const useUploadThing = () => {
             throw new Error(`Upload failed with status: ${response.status}`);
           }
           return response;
-        },
-        onSuccess: () => {
-
         },
         onError: (error) => {
           console.error("Error uploading file:", error);
