@@ -1,4 +1,9 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
 @plugin "daisyui" {
     themes: synthwave --default, emerald;
 }
+
+@plugin "tailwindcss-animate";
+

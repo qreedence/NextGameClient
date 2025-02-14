@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import LogoutComponent from "../auth/LogoutComponent";
 import { Settings } from "lucide-react";
 import useAuth from "../../services/useAuth";
+import Avatar from "./Avatar";
 
 const NavBarDropdown = () => {
 const {userProfile} = useAuth();
@@ -10,15 +11,11 @@ const {userProfile} = useAuth();
         <div className="dropdown dropdown-end">
             {userProfile?.avatar ? (
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar w-12">
-                    <div className="ring-white ring-offset-black rounded-full ring ring-offset-2">
-                        <img src={userProfile.avatar} />
-                    </div>
+                    <Avatar size="12"/>
                 </div>
             ) : (
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar avatar-placeholder w-12">
-                    <div className="bg-neutral text-neutral-content w-12 rounded-full">
-                        <span className="font-bold text-xl">{userProfile?.userName[0].toUpperCase()}</span>
-                    </div>
+                    <Avatar size="12"/>
                 </div>
             )}
             <ul

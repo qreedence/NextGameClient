@@ -5,6 +5,7 @@ import useAuth from "../../services/useAuth";
 const NavBar = () => {
     const {isAuthenticated, userProfile} = useAuth();
 
+    if (isAuthenticated !== undefined)
     return (
         <div className="navbar bg-base-100 shadow-sm py-4">
             <div className="flex-1">
