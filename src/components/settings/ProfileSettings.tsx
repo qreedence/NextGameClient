@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Input from "../ui/Input";
 import UploadProfilePicture from "../uploadthing/UploadProfilePicture";
 import useSettings from "../../services/useSettings";
-import Avatar from "../ui/Avatar";
+import Avatar from "../ui/AvatarComponent";
 
 const ProfileSettings = () => {
     const { isLoadingSettings, userSettings, updateUserSettings} = useSettings();

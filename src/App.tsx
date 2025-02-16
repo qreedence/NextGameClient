@@ -10,6 +10,7 @@ import TermsOfService from "./pages/TermsOfService"
 import ExternalToken from "./pages/ExternalToken"
 import RedirectLoggedIn from "./components/auth/RedirectLoggedIn"
 import RedirectLoggedOut from "./components/auth/RedirectLoggedOut"
+import { ThemeProvider } from "./components/ui/theme-provider"
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,7 +25,8 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="bg-base-200 pb-8 min-h-screen w-full">
+      <ThemeProvider>
+      <div className="pb-8 min-h-screen w-full">
       <NavBar/>
       <Routes>
         <Route path="/" element={<Home/>}/>
@@ -41,6 +43,7 @@ function App() {
 
       </Routes>
       </div>
+      </ThemeProvider>
     </QueryClientProvider>
   )};
 
