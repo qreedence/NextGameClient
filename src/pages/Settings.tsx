@@ -1,6 +1,7 @@
 import useAuth from "@/hooks/useAuth";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ProfileSettings from "@/components/settings/ProfileSettings";
+import ChangePassword from "@/components/settings/ChangePassword";
 
 const Settings = () => {
   const { userProfile } = useAuth();
@@ -21,7 +22,7 @@ const Settings = () => {
           <ProfileSettings />
         </TabsContent>
         <TabsContent value="password">
-          <p>hej</p>
+          <ChangePassword />
         </TabsContent>
       </Tabs>
     );

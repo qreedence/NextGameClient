@@ -76,7 +76,10 @@ const UploadProfilePicture: React.FC = () => {
 
   return (
     <div className="flex flex-col gap-2 items-start relative">
-      <label htmlFor="profilePicture" className="text-md font-semibold">
+      <label
+        htmlFor="profilePicture"
+        className="text-md font-semibold tracking-wide"
+      >
         Change profile picture
       </label>
       <Input
@@ -96,7 +99,7 @@ const UploadProfilePicture: React.FC = () => {
         {creatingPresignedUrls ? "Saving..." : "Save Profile Picture"}
       </Button>
       {croppedImage && !uploaded && (
-        <p className="text-error italic text-center">
+        <p className="text-muted text-xs italic text-center">
           Your profile picture has not been saved yet.
         </p>
       )}

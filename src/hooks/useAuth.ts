@@ -37,29 +37,6 @@ const useAuth = () => {
     enabled: isAuthenticated === true,
   });
 
-  // //update store, maybe remove this
-  // useEffect(() => {
-  //     if (userProfile){
-  //         setUserProfile(userProfile);
-  //     }
-  // },[userProfile, setUserProfile])
-
-  // //fetch data for userSettings
-  // const {data: userSettings, isLoading:isLoadingSettings} = useQuery<UserSettingsDTO, Error>({
-  //     queryKey: ["currentUserSettings"],
-  //     queryFn: async () => {
-  //         return await SettingsService.getUserSettings();
-  //     },
-  //     enabled: isAuthenticated === true,
-  // });
-
-  // //update store, maybe remove this
-  // useEffect(() => {
-  //     if (userSettings){
-  //         setUserSettings(userSettings);
-  //     }
-  // },[userSettings, setUserSettings])
-
   //login
   const { mutate: login } = useMutation<void, Error, LoginDTO>({
     mutationFn: async (loginDTO: LoginDTO) => {
