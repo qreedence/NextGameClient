@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import NavBarDropdown from "./NavBarDropdown";
 import useAuth from "../../services/useAuth";
-import { Button } from "./button";
 import { ModeToggle } from "./mode-toggle";
 
 const NavBar = () => {
@@ -9,15 +8,14 @@ const NavBar = () => {
 
     if (isAuthenticated !== undefined)
     return (
-        <div className="flex shadow-sm py-4">
+        <div className="flex shadow-sm py-4 px-8 items-center">
             <div className="flex-1">
-                <Link to="/" className="btn btn-ghost text-xl">Home</Link>
+                <Link to="/" className="btn btn-ghost text-xl font-bold">Home</Link>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
                 <ModeToggle/>
-            {isAuthenticated && userProfile ? (
+                {isAuthenticated && userProfile ? (
                 <div className="flex items-center gap-4">
-                    <p className="text-lg font-semibold">{userProfile.userName}</p>
                     <NavBarDropdown/>
                 </div>
             ) : (<Link to="/login" className="btn btn-neutral text-xl font-bold">Log in</Link>)} 

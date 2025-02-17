@@ -12,7 +12,7 @@ const LogoutComponent = () => {
     }
 
     return (
-        <button onClick={handleClick} className="font-bold text-lg text-right flex justify-center items-end"><LogOut />Log out</button>
+        <button onClick={handleClick} className="text-right flex justify-start gap-2 w-full hover:cursor-pointer"><LogOut className="w-5" />Log out</button>
     )
 }
 

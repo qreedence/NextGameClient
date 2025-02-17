@@ -26,7 +26,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-      <div className="pb-8 min-h-screen w-full">
+      <div className="bg-background pb-8 min-h-screen w-full">
       <NavBar/>
       <Routes>
         <Route path="/" element={<Home/>}/>
@@ -38,7 +38,7 @@ function App() {
           <Route path="/register" element={<Register/>}/>
         </Route>
         <Route element={<RedirectLoggedOut/>}>
-          <Route path="/settings" element={<Settings/>}/>
+          {/* <Route path="/settings" element={<Settings/>}/> */}
         </Route>
 
       </Routes>
