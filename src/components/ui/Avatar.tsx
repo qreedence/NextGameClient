@@ -1,36 +1,49 @@
-import useAuth from "@/services/useAuth";
-import { useStore } from "../../stores/useStore";
+import * as React from "react";
+import * as AvatarPrimitive from "@radix-ui/react-avatar";
 
-interface AvatarProps{
-    size: string,
-}
+import { cn } from "@/lib/utils";
 
-const Avatar = ({size}:AvatarProps) => {
-    const {temporaryProfilePicture} = useStore();
-    const {userProfile, isAuthenticated} = useAuth();
+const Avatar = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
+>(({ className, ...props }, ref) => (
+  <AvatarPrimitive.Root
+    ref={ref}
+    className={cn(
+      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
+      className
+    )}
+    {...props}
+  />
+));
+Avatar.displayName = AvatarPrimitive.Root.displayName;
 
-    if (temporaryProfilePicture !== null){
-        return (
-            <div className={`ring-white ring-offset-black rounded-full ring ring-offset-2 w-${size}`}>
-                <img src={URL.createObjectURL(temporaryProfilePicture)} />
-            </div>
-        )
-    }
+const AvatarImage = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Image>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
+>(({ className, ...props }, ref) => (
+  <AvatarPrimitive.Image
+    ref={ref}
+    className={cn("aspect-square h-full w-full", className)}
+    {...props}
+  />
+));
+AvatarImage.displayName = AvatarPrimitive.Image.displayName;
 
-    if (isAuthenticated && userProfile?.avatar){
-        return (
-            <div className={`ring-white ring-offset-black rounded-full ring ring-offset-2 w-${size}`}>
-                    <img src={userProfile.avatar} />
-                </div>
-        )
-    }
-    if (isAuthenticated && !userProfile?.avatar){
-        return(
-            <div className={`ring-white ring-offset-black rounded-full ring ring-offset-2 w-${size}`}>
-                <span className="font-bold text-xl">{userProfile?.userName[0].toUpperCase()}</span>
-            </div>
-        )
-    }
-}
+const AvatarFallback = React.forwardRef<
+  React.ElementRef<typeof AvatarPrimitive.Fallback>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
+>(({ className, ...props }, ref) => (
+  <AvatarPrimitive.Fallback
+    ref={ref}
+    className={cn(
+      "flex h-full w-full items-center justify-center rounded-full bg-muted",
+      className
+    )}
+    {...props}
+  />
+));
+AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
-export default Avatar;
+export { Avatar, AvatarImage, AvatarFallback };
+

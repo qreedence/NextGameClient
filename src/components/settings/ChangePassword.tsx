@@ -1,125 +1,154 @@
-import { useMutation } from "@tanstack/react-query";
-import { ApiError, ChangePasswordDTO, SettingsService } from "../../apiclient";
-import { useState } from "react";
-import Input from "../ui/Input";
-import { validationService } from "../../services/validationService";
-import AlertError from "../ui/AlertError";
-import { Check } from "lucide-react";
-import useAuth from "../../services/useAuth";
+import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
+import useChangePassword from "@/hooks/useChangePassword";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  changePasswordSchema,
+  ChangePasswordSchemaType,
+} from "@/schemas/changePasswordSchema";
+import { ChangePasswordDTO } from "@/apiclient";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
+import PulseLoader from "react-spinners/PulseLoader";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Card, CardContent } from "../ui/card";
 
 const ChangePassword = () => {
-    const {userProfile, invalidateUserProfile} = useAuth();
-    const [changePasswordDTO, setChangePasswordDTO] = useState<ChangePasswordDTO>({
-        oldPassword: "",
-        newPassword: "",
-    })
-    const [confirmNewPassword, setConfirmNewPassword] = useState<string>("");
-    const [errors, setErrors] = useState<string[]>([]);
-    const [success, setSuccess] = useState<boolean>(false);
-    const validPassword = validationService.validatePassword(changePasswordDTO.newPassword);
-    const passwordsMatch = validationService.validatePasswordsMatch(changePasswordDTO.newPassword, confirmNewPassword);
+  const { userProfile } = useAuth();
+  const { changePassword, isPending, isSuccess } = useChangePassword();
 
-    const {mutate: changePassword, isPending} = useMutation<ChangePasswordDTO, Error, ChangePasswordDTO>({
-        mutationFn: async(updatedPassword: ChangePasswordDTO) => {
-            return SettingsService.changePassword(updatedPassword);   
-        },
-        onSuccess: async () => {
-            invalidateUserProfile();
-            setSuccess(true);
-            setChangePasswordDTO({oldPassword: "", newPassword: ""});
-            setConfirmNewPassword("");
-        },
-        onError: (err) =>{
-            if (err instanceof ApiError && err.body) {
-                const errorMessages = err.body.map((e: { description: string }) => e.description);
-                setErrors(errorMessages);
-            } else {
-                setErrors(["Something went wrong. Please try again."]); 
-            }
-        }
+  const form = useForm<ChangePasswordSchemaType>({
+    resolver: zodResolver(changePasswordSchema),
+    defaultValues: {
+      currentPassword: "",
+      newPassword: "",
+      confirmNewPassword: "",
+    },
+  });
+
+  const onSubmit = async (values: ChangePasswordSchemaType) => {
+    let newPassword: ChangePasswordDTO;
+    if (userProfile?.hasPassword) {
+      newPassword = {
+        oldPassword: values.currentPassword,
+        newPassword: values.newPassword,
+      };
+    } else {
+      newPassword = {
+        newPassword: values.newPassword,
+      };
+    }
+    await changePassword(newPassword);
+    form.reset({
+      currentPassword: "",
+      newPassword: "",
+      confirmNewPassword: "",
     });
+  };
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        setErrors([]);
-        if (!validPassword){
-            setErrors(["Passwords must be at least 8 characters."]);
-            return;
-        }
-    
-        if (!passwordsMatch) {
-            setErrors(["Passwords do not match."])
-            return;
-        }
-        changePassword(changePasswordDTO);
-    }
-
-    if (userProfile && userProfile.hasPassword){
-        return (
-            <form name="changePasswordForm" onSubmit={handleSubmit} className="fieldset w-md bg-base-100 border border-base-300 p-4 rounded-box">
-                <Input 
-                    id={"currentPassword"} 
-                    label={"Current password"}
-                    type={"password"} 
-                    value={changePasswordDTO.oldPassword || ""}
-                    onChange={(e) =>{
-                        setChangePasswordDTO((prev) => ({...prev, oldPassword: e.target.value,}))}
+  if (userProfile !== undefined) {
+    return (
+      <Card>
+        <CardContent>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="flex flex-col items-center gap-4 mt-6"
+            >
+              <FormField
+                control={form.control}
+                name="currentPassword"
+                render={({ field }) => (
+                  <FormItem
+                    className={
+                      userProfile.hasPassword === false
+                        ? "hidden"
+                        : "grid gap-1 w-full"
                     }
-                 />
-                 <Input 
-                    id={"newPassword"} 
-                    label={"New password"}
-                    type={"password"} 
-                    value={changePasswordDTO.newPassword || ""} 
-                    onChange={(e) =>
-                        setChangePasswordDTO((prev) => ({...prev, newPassword: e.target.value,}))}
-                 />
-                 <Input 
-                    id={"confirmNewPassword"} 
-                    label={"Confirm new password"}
-                    type={"password"} 
-                    value={confirmNewPassword} 
-                    onChange={(e) => setConfirmNewPassword(e.target.value)}
-                 />
-            {errors.length > 0 && (
-                <AlertError errorMessages={errors}/>
-            )}
-                <button type="submit" disabled={isPending || success} className="btn btn-neutral">
-                    {isPending && !success ? "Updating..." : "Save Changes"}{success && <Check className="ml-2"/>}
-                </button>
+                  >
+                    <div className="grid gap-4 grid-cols-2">
+                      <div className="flex flex-col">
+                        <FormLabel className="text-md font-semibold tracking-wide">
+                          Current password
+                        </FormLabel>
+                        <FormDescription className="sr-only">
+                          Your current password.
+                        </FormDescription>
+                        <FormMessage />
+                      </div>
+                      <FormControl>
+                        <Input type="password" {...field} />
+                      </FormControl>
+                    </div>
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="newPassword"
+                render={({ field }) => (
+                  <FormItem className="grid gap-1 w-full">
+                    <div className="grid gap-4 grid-cols-2">
+                      <div className="flex flex-col">
+                        <FormLabel className="text-md font-semibold tracking-wide">
+                          New password
+                        </FormLabel>
+                        <FormDescription className="sr-only">
+                          Your new password.
+                        </FormDescription>
+                        <FormMessage />
+                      </div>
+                      <FormControl>
+                        <Input type="password" {...field} />
+                      </FormControl>
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="confirmNewPassword"
+                render={({ field }) => (
+                  <FormItem className="grid gap-1 w-full">
+                    <div className="grid gap-4 grid-cols-2">
+                      <div className="flex flex-col">
+                        <FormLabel className="text-md font-semibold tracking-wide">
+                          Confirm new password
+                        </FormLabel>
+                        <FormDescription className="sr-only">
+                          Your new password, again.
+                        </FormDescription>
+                        <FormMessage />
+                      </div>
+                      <FormControl>
+                        <Input type="password" {...field} />
+                      </FormControl>
+                    </div>
+                  </FormItem>
+                )}
+              />
+
+              <Button
+                type="submit"
+                className="w-[50%] mt-6"
+                onClick={form.handleSubmit(onSubmit)}
+              >
+                {isPending ? <PulseLoader color={"white"} /> : "Save Changes"}
+              </Button>
             </form>
-        )
-    }
-
-    if (userProfile && !userProfile.hasPassword){
-        return(
-        <form name="changePasswordForm" onSubmit={handleSubmit} className="fieldset w-md bg-base-100 border border-base-300 p-4 rounded-box">
-            <Input 
-                    id={"setPassword"} 
-                    label={"Set password"}
-                    type={"password"} 
-                    value={changePasswordDTO.newPassword || ""} 
-                    onChange={(e) =>
-                        setChangePasswordDTO((prev) => ({...prev, newPassword: e.target.value,}))}
-                 />
-                 <Input 
-                    id={"confirmPassword"} 
-                    label={"Confirm password"}
-                    type={"password"} 
-                    value={confirmNewPassword} 
-                    onChange={(e) => setConfirmNewPassword(e.target.value)}
-                 />
-            {errors.length > 0 && (
-                <AlertError errorMessages={errors}/>
-            )}
-                <button type="submit" disabled={isPending} className="btn btn-neutral">
-                    {isPending ? "Updating..." : "Save Changes"}
-                </button>
-        </form>
-        )
-        
-    }
-    
-}
-
+          </Form>
+        </CardContent>
+      </Card>
+    );
+  }
+};
 export default ChangePassword;

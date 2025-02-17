@@ -2,8 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { FileUploadRequest } from './FileUploadRequest';
+import type { FileUploadRequest } from "./FileUploadRequest";
 export type FileUploadRequestPayload = {
-    files?: Array<FileUploadRequest>;
+  files?: Array<FileUploadRequest>;
 };
-

@@ -3,8 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type LoginDTO = {
-    userNameOrEmail: string;
-    password: string;
-    rememberMe?: boolean;
+  userNameOrEmail: string;
+  password: string;
+  rememberMe?: boolean;
 };
-
