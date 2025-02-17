@@ -9,9 +9,9 @@
 // import { Link } from "react-router-dom";
 
 // const RegisterComponent = () => {
-//     const [registerDTO, setRegisterDTO] = useState<RegisterDTO>({ 
-//         userName: "", 
-//         email: "", 
+//     const [registerDTO, setRegisterDTO] = useState<RegisterDTO>({
+//         userName: "",
+//         email: "",
 //         password: ""
 //     });
 //     const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -37,12 +37,12 @@
 //             setErrors(["Passwords must be at least 8 characters."]);
 //             return;
 //         }
-    
+
 //         if (!passwordsMatch) {
 //             setErrors(["Passwords do not match."])
 //             return;
 //         }
-    
+
 //         setLoading(true);
 //         try {
 //           await AuthService.registerUser(registerDTO);
@@ -54,13 +54,13 @@
 //                 const errorMessages = err.body.map((e: { description: string }) => e.description);
 //                 setErrors(errorMessages);
 //             } else {
-//                 setErrors(["Something went wrong. Please try again."]); 
+//                 setErrors(["Something went wrong. Please try again."]);
 //             }
 //         } finally {
 //           setLoading(false)
 //         }
 //       };
-    
+
 //     return (
 //         <form>
 //             <fieldset className="fieldset w-md bg-base-100 border border-base-300 p-4 rounded-box">
@@ -109,11 +109,11 @@
 //                 {success && (
 //                     <AlertSuccess successMessage={"Successfully registered. You can now "} url="https://localhost:5173/login" linkText="log in."/>
 //                 )}
-//                 {loading === true && !success 
+//                 {loading === true && !success
 //                     ? <button disabled className="btn btn-neutral mt-4">
 //                         <span className="loading loading-spinner"></span>
 //                             Registering
-//                       </button> 
+//                       </button>
 //                     : <button type="submit" onClick={handleSubmit} className="btn btn-neutral mt-4">Register</button>
 //                 }
 //                 <p className="text-center">Already have an account? Log in <Link className="link link-hover font-bold" to="/login">here.</Link></p>

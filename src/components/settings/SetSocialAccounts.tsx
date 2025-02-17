@@ -1,7 +1,5 @@
 const SetSocialAccounts = () => {
-    return (
-        <>Nothing here yet.</>
-    )
-}
+  return <>Nothing here yet.</>;
+};
 
 export default SetSocialAccounts;

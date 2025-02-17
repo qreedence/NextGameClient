@@ -3,9 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export type FileUploadRequest = {
-    lastModified?: number;
-    name?: string;
-    size?: number;
-    type?: string;
+  lastModified?: number;
+  name?: string;
+  size?: number;
+  type?: string;
 };
-
