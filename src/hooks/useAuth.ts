@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { UserProfileDTO } from "../apiclient/models/UserProfileDTO";
 import { useStore } from "../stores/useStore";
 import { AuthService } from "../apiclient/services/AuthService";
-import { LoginDTO } from "../apiclient";
+import { ApiError, LoginDTO, RegisterDTO } from "../apiclient";
 import { useEffect } from "react";
 
 const useAuth = () => {
@@ -57,6 +57,28 @@ const useAuth = () => {
     },
   });
 
+  //register
+  const {
+    mutate: register,
+    isPending: isPendingRegister,
+    isSuccess: isSuccessRegister,
+    error: registerError,
+  } = useMutation<void, Error, RegisterDTO>({
+    mutationFn: async (registerDTO: RegisterDTO) => {
+      try {
+        return await AuthService.registerUser(registerDTO);
+      } catch (err) {
+        if (err instanceof ApiError && err.body) {
+          const error = err.body.map(
+            (e: { description: string }) => e.description
+          );
+          console.log(error);
+          throw Error(error);
+        }
+      }
+    },
+  });
+
   //complete externalAuth
   const { mutate: externalAuthComplete } = useMutation<string, Error, string>({
     mutationFn: async (tokenId: string) => {
@@ -72,21 +94,19 @@ const useAuth = () => {
     queryClient.invalidateQueries({ queryKey: ["currentUserProfile"] });
   };
 
-  // const invalidateUserSettings = () => {
-  //     queryClient.invalidateQueries({queryKey: ["currentUserSettings"]});
-  // }
-
   return {
     isAuthenticated,
     isLoadingIsAuthenticated: isAuthenticated === undefined,
     userProfile,
     isLoadingProfile,
-    // userSettings, isLoadingSettings,
     login,
     logout,
     externalAuthComplete,
     invalidateUserProfile,
-    // invalidateUserSettings
+    register,
+    registerError,
+    isPendingRegister,
+    isSuccessRegister,
   };
 };
 

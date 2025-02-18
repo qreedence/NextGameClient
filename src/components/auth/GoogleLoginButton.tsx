@@ -10,10 +10,10 @@ const GoogleLoginButton = () => {
       <Button
         variant="default"
         type="submit"
-        className="w-full bg-white text-black hover:bg-gray-200 flex items-center border-1 border-gray-300"
+        className="w-full bg-white text-black hover:bg-gray-200 flex items-center border-1 font-semibold border-gray-300"
       >
-        <FcGoogle className="mt-0.5" />
-        Login with Google
+        <FcGoogle />
+        Continue with Google
       </Button>
     </form>
   );

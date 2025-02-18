@@ -1,124 +1,54 @@
-// import { useState } from "react";
-// import { ApiError, AuthService, RegisterDTO } from "../../apiclient";
-// import AlertError from "../ui/AlertError";
-// import { LockKeyhole, Mail, User} from "lucide-react";
-// import AlertSuccess from "../ui/AlertSuccess";
-// import FormValidationIcon from "../ui/FormValidationIcon";
-// import { validationService } from "../../services/validationService";
-// import Input from "../ui/Input";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import RegisterForm from "./RegisterForm";
+import GoogleLoginButton from "./GoogleLoginButton";
+import useAuth from "@/hooks/useAuth";
 
-// const RegisterComponent = () => {
-//     const [registerDTO, setRegisterDTO] = useState<RegisterDTO>({
-//         userName: "",
-//         email: "",
-//         password: ""
-//     });
-//     const [confirmPassword, setConfirmPassword] = useState<string>("");
-//     const [loading, setLoading] = useState<boolean>(false);
-//     const [errors, setErrors] = useState<string[]>([]);
-//     const [success, setSuccess] = useState<boolean>(false);
+const RegisterComponent = () => {
+  const { isSuccessRegister } = useAuth();
 
-//     const validEmail = validationService.validateEmail(registerDTO.email);
-//     const validPassword = validationService.validatePassword(registerDTO.password);
-//     const passwordsMatch = validationService.validatePasswordsMatch(registerDTO.password, confirmPassword);
+  return (
+    <div className="flex flex-col gap-6">
+      <Card>
+        <CardHeader className="text-center">
+          <CardTitle className="text-xl font-bold">Register</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {isSuccessRegister && (
+            <div>
+              <p>Registered! You can now log in.</p>
+            </div>
+          )}
+          {!isSuccessRegister && (
+            <>
+              <div className="grid gap-6">
+                <div className="flex flex-col gap-4">
+                  <GoogleLoginButton />
+                </div>
+                <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+                  <span className="relative z-10 bg-background px-2 text-muted-foreground">
+                    Or continue with
+                  </span>
+                </div>
+              </div>
+              <RegisterForm />
+              <p className="text-sm text-muted mt-2 text-center">
+                Already have an account? Log in{" "}
+                <Link className="link link-hover font-bold" to="/login">
+                  here.
+                </Link>
+              </p>
+            </>
+          )}
+        </CardContent>
+      </Card>
+      <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
+        By clicking Register, you agree to our{" "}
+        <Link to="/termsofservice">Terms of Service</Link> and{" "}
+        <Link to="/privacy">Privacy Policy</Link>.
+      </div>
+    </div>
+  );
+};
 
-//     const handleSubmit = async (e: React.FormEvent) => {
-//         e.preventDefault();
-//         setErrors([]);
-//         setSuccess(false);
-
-//         if (!validEmail) {
-//             setErrors(["Invalid email format."]);
-//             return;
-//         }
-
-//         if (!validPassword){
-//             setErrors(["Passwords must be at least 8 characters."]);
-//             return;
-//         }
-
-//         if (!passwordsMatch) {
-//             setErrors(["Passwords do not match."])
-//             return;
-//         }
-
-//         setLoading(true);
-//         try {
-//           await AuthService.registerUser(registerDTO);
-//           setRegisterDTO({ email: "", userName: "", password: "" });
-//           setConfirmPassword("");
-//           setSuccess(true);
-//         } catch (err) {
-//             if (err instanceof ApiError && err.body) {
-//                 const errorMessages = err.body.map((e: { description: string }) => e.description);
-//                 setErrors(errorMessages);
-//             } else {
-//                 setErrors(["Something went wrong. Please try again."]);
-//             }
-//         } finally {
-//           setLoading(false)
-//         }
-//       };
-
-//     return (
-//         <form>
-//             <fieldset className="fieldset w-md bg-base-100 border border-base-300 p-4 rounded-box">
-//                 <legend className="fieldset-legend text-xl font-bold">Register</legend>
-//                         <Input
-//                             id={"username"}
-//                             icon={<User className="mb-2.5"/>}
-//                             label={"Username"}
-//                             type={"text"}
-//                             value={registerDTO.userName}
-//                             onChange={(e) =>
-//                                 setRegisterDTO((prev) => ({...prev, userName: e.target.value,}))}
-//                             />
-//                         <Input
-//                             id={"email"}
-//                             icon={<Mail className="mb-2.5"/>}
-//                             label={"Email"}
-//                             type={"email"}
-//                             value={registerDTO.email}
-//                             onChange={(e) =>
-//                                 setRegisterDTO((prev) => ({...prev, email: e.target.value,}))}
-//                             validationIcon={<FormValidationIcon valid={validEmail}/>}
-//                             />
-//                         <Input
-//                             id={"password"}
-//                             icon={<LockKeyhole className="mb-2.5"/>}
-//                             label={"Password"}
-//                             type={"password"}
-//                             value={registerDTO.password}
-//                             onChange={(e) =>
-//                                 setRegisterDTO((prev) => ({...prev, password: e.target.value,}))}
-//                             validationIcon={<FormValidationIcon valid={validPassword}/>}
-//                             />
-//                         <Input
-//                             id={"confirmPassword"}
-//                             icon={<LockKeyhole className="mb-2.5"/>}
-//                             label={"Confirm password"}
-//                             type={"password"}
-//                             value={confirmPassword}
-//                             onChange={(e) => setConfirmPassword(e.target.value)}
-//                             validationIcon={<FormValidationIcon valid={passwordsMatch}/>}
-//                             />
-//                 {errors.length > 0 && (
-//                     <AlertError errorMessages={errors}/>
-//                 )}
-//                 {success && (
-//                     <AlertSuccess successMessage={"Successfully registered. You can now "} url="https://localhost:5173/login" linkText="log in."/>
-//                 )}
-//                 {loading === true && !success
-//                     ? <button disabled className="btn btn-neutral mt-4">
-//                         <span className="loading loading-spinner"></span>
-//                             Registering
-//                       </button>
-//                     : <button type="submit" onClick={handleSubmit} className="btn btn-neutral mt-4">Register</button>
-//                 }
-//                 <p className="text-center">Already have an account? Log in <Link className="link link-hover font-bold" to="/login">here.</Link></p>
-//             </fieldset>
-//         </form>
-//     )};
-
-// export default RegisterComponent;
+export default RegisterComponent;
