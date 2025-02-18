@@ -1,23 +1,28 @@
+import { Alert } from "./alert";
+
 interface AlertErrorProps {
-  errorMessages: string[];
+  errorMessage: string;
 }
 
-const AlertError = ({ errorMessages }: AlertErrorProps) => {
+const AlertError = ({ errorMessage }: AlertErrorProps) => {
+  const errorMessages = errorMessage.split(",").map((msg) => msg.trim());
+
   return (
-    <div
+    <Alert
+      variant={"destructive"}
       role="alert"
-      className="alert alert-error mt-2 flex flex-col items-center"
+      className="mt-2 flex flex-col items-center"
     >
       {errorMessages.length > 1 ? (
-        <ul className="list-disc font-semibold flex flex-col gap-1">
-          {errorMessages.map((errorMessage, index) => (
-            <li key={index}>{errorMessage}</li>
+        <ul className="font-semibold flex flex-col gap-1">
+          {errorMessages.map((message, index) => (
+            <li key={index}>{message}</li>
           ))}
         </ul>
       ) : (
         <>{errorMessages[0]}</>
       )}
-    </div>
+    </Alert>
   );
 };
 

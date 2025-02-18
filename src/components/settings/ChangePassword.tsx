@@ -23,7 +23,7 @@ import { Card, CardContent } from "../ui/card";
 
 const ChangePassword = () => {
   const { userProfile } = useAuth();
-  const { changePassword, isPending, isSuccess } = useChangePassword();
+  const { changePassword, isPending } = useChangePassword();
 
   const form = useForm<ChangePasswordSchemaType>({
     resolver: zodResolver(changePasswordSchema),
