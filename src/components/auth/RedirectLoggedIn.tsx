@@ -18,12 +18,7 @@ const RedirectLoggedIn = () => {
     return <Outlet />;
   }
 
-  if (isAuthenticated === undefined)
-    return (
-      <>
-        <p>undefined</p>
-      </>
-    );
+  if (isAuthenticated === undefined) return <></>;
 };
 
 export default RedirectLoggedIn;

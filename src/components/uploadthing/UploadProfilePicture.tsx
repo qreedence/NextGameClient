@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { FileUploadRequest } from "../../apiclient/models/FileUploadRequest";
 import useUploadThing from "../../hooks/useUploadThing";
 import { FileUploadRequestPayload } from "../../apiclient";
@@ -57,7 +57,6 @@ const UploadProfilePicture: React.FC = () => {
             url: data.presignedUrl,
             file: croppedImage,
           });
-          setUploaded(true);
         },
       });
     } catch (error) {

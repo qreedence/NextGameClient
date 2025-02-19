@@ -3,7 +3,7 @@ import { useStore } from "../../stores/useStore";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 
 interface AvatarComponentProps {
-  size: number;
+  size: string;
 }
 
 const AvatarComponent = ({ size }: AvatarComponentProps) => {
@@ -12,7 +12,7 @@ const AvatarComponent = ({ size }: AvatarComponentProps) => {
 
   if (temporaryProfilePicture !== null) {
     return (
-      <Avatar className={`size-${size} border-2 border-white`}>
+      <Avatar className={`${size} border-2 border-white`}>
         <AvatarImage src={URL.createObjectURL(temporaryProfilePicture)} />
         <AvatarFallback>
           {userProfile?.userName[0].toUpperCase()}
@@ -23,7 +23,7 @@ const AvatarComponent = ({ size }: AvatarComponentProps) => {
 
   if (isAuthenticated && userProfile) {
     return (
-      <Avatar className={`size-${size} border-2 border-white`}>
+      <Avatar className={`${size} border-2 border-white`}>
         <AvatarImage src={userProfile.avatar} />
         <AvatarFallback>
           {userProfile?.userName[0].toUpperCase()}
