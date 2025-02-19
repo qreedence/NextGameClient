@@ -3,9 +3,10 @@
 /* tslint:disable */
 /* eslint-disable */
 export type UserSettingsDTO = {
-  userId: string;
-  avatar?: string;
-  accountIsPublic?: boolean;
-  userName: string;
-  hasPassword?: boolean;
+    userId: string;
+    avatar?: string;
+    accountIsPublic?: boolean;
+    userName: string;
+    hasPassword?: boolean;
 };
+

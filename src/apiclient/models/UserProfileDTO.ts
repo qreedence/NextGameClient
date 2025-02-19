@@ -3,7 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export type UserProfileDTO = {
-  userName: string;
-  avatar?: string;
-  hasPassword?: boolean;
+    userName: string;
+    avatar?: string;
+    hasPassword?: boolean;
 };
+

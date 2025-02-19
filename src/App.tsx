@@ -12,6 +12,8 @@ import RedirectLoggedIn from "./components/auth/RedirectLoggedIn";
 import RedirectLoggedOut from "./components/auth/RedirectLoggedOut";
 import { ThemeProvider } from "./components/ui/theme-provider";
 import { Toaster } from "./components/ui/sonner";
+import ResetPassword from "./pages/ResetPassword";
+import ForgotPassword from "./pages/ForgotPassword";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -33,6 +35,8 @@ function App() {
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/termsofservice" element={<TermsOfService />} />
             <Route path="/login/external/" element={<ExternalToken />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route element={<RedirectLoggedIn />}>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />

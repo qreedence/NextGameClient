@@ -6,13 +6,18 @@ import { useStore } from "../../stores/useStore";
 import ImageCropper, { ImageCropperHandle } from "../settings/ImageCropper";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import PulseLoader from "react-spinners/PulseLoader";
 
 const UploadProfilePicture: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
-  const [uploaded, setUploaded] = useState<boolean>(false);
   const [croppedImage, setCroppedImage] = useState<File | null>(null);
-  const { createPresignedUrls, creatingPresignedUrls, uploadToPresignedUrl } =
-    useUploadThing();
+  const {
+    createPresignedUrls,
+    creatingPresignedUrls,
+    uploadToPresignedUrl,
+    uploadSuccess,
+    uploading,
+  } = useUploadThing();
   const { setTemporaryProfilePicture } = useStore();
   const cropperRef = useRef<ImageCropperHandle>(null);
 
@@ -60,20 +65,6 @@ const UploadProfilePicture: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-      if (croppedImage && !uploaded) {
-        event.preventDefault();
-        return;
-      }
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => {
-      window.removeEventListener("beforeUnload", handleBeforeUnload);
-    };
-  }, [croppedImage, uploaded]);
-
   return (
     <div className="flex flex-col gap-2 items-start relative">
       <label
@@ -96,10 +87,14 @@ const UploadProfilePicture: React.FC = () => {
         onClick={handleUpload}
         disabled={creatingPresignedUrls || !croppedImage}
       >
-        {creatingPresignedUrls ? "Saving..." : "Save Profile Picture"}
+        {uploading || creatingPresignedUrls ? (
+          <PulseLoader color={"white"} size={7} />
+        ) : (
+          "Save Profile Picture"
+        )}
       </Button>
-      {croppedImage && !uploaded && (
-        <p className="text-muted text-xs italic text-center">
+      {croppedImage && !uploadSuccess && (
+        <p className="text-destructive text-xs italic font-semibold text-center">
           Your profile picture has not been saved yet.
         </p>
       )}
