@@ -64,12 +64,12 @@ const LoginForm = () => {
             <FormItem className="grid gap-1">
               <FormLabel className="flex justify-between">
                 Password
-                <a
-                  href="#"
+                <Link
+                  to="/forgot-password"
                   className="ml-auto text-sm underline-offset-4 hover:underline"
                 >
                   Forgot your password?
-                </a>
+                </Link>
               </FormLabel>
               <FormControl>
                 <Input type="password" placeholder="Password" {...field} />
