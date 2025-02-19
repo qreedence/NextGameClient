@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FileUploadRequestPayload, UploadThingService } from "../apiclient";
 import axios, { AxiosResponse } from "axios";
 import useAuth from "./useAuth";
+import { toast } from "sonner";
 
 const useUploadThing = () => {
   const queryClient = useQueryClient();
@@ -35,11 +36,11 @@ const useUploadThing = () => {
     });
 
   //upload to presigned url
-  const { mutate: uploadToPresignedUrl } = useMutation<
-    AxiosResponse,
-    Error,
-    { url: string; file: File }
-  >({
+  const {
+    mutate: uploadToPresignedUrl,
+    isPending: uploading,
+    isSuccess: uploadSuccess,
+  } = useMutation<AxiosResponse, Error, { url: string; file: File }>({
     mutationFn: async ({ url, file }) => {
       const formData = new FormData();
       formData.append("file", file);
@@ -53,6 +54,9 @@ const useUploadThing = () => {
       }
       return response;
     },
+    onSuccess: () => {
+      toast("Profile picture updated.");
+    },
     onError: (error) => {
       console.error("Error uploading file:", error);
     },
@@ -63,6 +67,8 @@ const useUploadThing = () => {
     creatingPresignedUrls,
     getMetaData,
     uploadToPresignedUrl,
+    uploading,
+    uploadSuccess,
   };
 };
 
