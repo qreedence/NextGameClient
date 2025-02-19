@@ -65,20 +65,6 @@ const UploadProfilePicture: React.FC = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-  //     if (croppedImage && !uploadSuccess) {
-  //       event.preventDefault();
-  //       return;
-  //     }
-  //   };
-
-  //   window.addEventListener("beforeunload", handleBeforeUnload);
-  //   return () => {
-  //     window.removeEventListener("beforeUnload", handleBeforeUnload);
-  //   };
-  // }, [croppedImage, uploadSuccess]);
-
   return (
     <div className="flex flex-col gap-2 items-start relative">
       <label
