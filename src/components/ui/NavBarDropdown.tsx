@@ -14,7 +14,7 @@ const NavBarDropdown = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <AvatarComponent size={12} />
+        <AvatarComponent size="size-12" />
       </DropdownMenuTrigger>
       <DropdownMenuContent
         className="w-(--radix-dropdown-menu-trigger-width) min-w-56 mt-1 bg-background text-foreground"

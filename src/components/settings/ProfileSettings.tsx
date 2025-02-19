@@ -9,7 +9,7 @@ const ProfileSettings = () => {
     <Card>
       <CardContent>
         <div className="py-4 grid grid-cols-2 items-center">
-          <AvatarComponent size={24} />
+          <AvatarComponent size="size-24" />
           <UploadProfilePicture />
         </div>
         <Separator className="mb-4" />
