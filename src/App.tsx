@@ -14,6 +14,7 @@ import { ThemeProvider } from "./components/ui/theme-provider";
 import { Toaster } from "./components/ui/sonner";
 import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
+import Friends from "./pages/Friends";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,22 +31,28 @@ function App() {
       <ThemeProvider>
         <div className="bg-background pb-8 min-h-screen w-full">
           <NavBar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/termsofservice" element={<TermsOfService />} />
-            <Route path="/login/external/" element={<ExternalToken />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/reset-password/:token" element={<ResetPassword />} />
-            <Route element={<RedirectLoggedIn />}>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-            </Route>
-            <Route element={<RedirectLoggedOut />}>
-              <Route path="/settings" element={<Settings />} />
-            </Route>
-          </Routes>
-          <Toaster />
+          <div className="md:px-[20%]">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/termsofservice" element={<TermsOfService />} />
+              <Route path="/login/external/" element={<ExternalToken />} />
+              <Route element={<RedirectLoggedIn />}>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route
+                  path="/reset-password/:token"
+                  element={<ResetPassword />}
+                />
+              </Route>
+              <Route element={<RedirectLoggedOut />}>
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/friends" element={<Friends />} />
+              </Route>
+            </Routes>
+            <Toaster />
+          </div>
         </div>
       </ThemeProvider>
     </QueryClientProvider>
