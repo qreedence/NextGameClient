@@ -43,4 +43,55 @@ export class UserService {
             },
         });
     }
+    /**
+     * Send a friend request.
+     * @param username
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static addFriend(
+        username?: string,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/user/add-friend',
+            query: {
+                'username': username,
+            },
+            errors: {
+                401: `Unauthorized`,
+                404: `Not Found`,
+            },
+        });
+    }
+    /**
+     * Lets a user see their incoming pending friend requests.
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static getPendingFriendRequests(): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/user/pending-friend-requests',
+            errors: {
+                401: `Unauthorized`,
+                404: `Not Found`,
+            },
+        });
+    }
+    /**
+     * Lets a user see their outgoing friend requests.
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static outgoingFriendRequests(): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/user/outgoing-friend-requests',
+            errors: {
+                401: `Unauthorized`,
+                404: `Not Found`,
+            },
+        });
+    }
 }
