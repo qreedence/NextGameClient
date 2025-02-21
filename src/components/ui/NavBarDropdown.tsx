@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import LogoutComponent from "../auth/LogoutComponent";
-import { Settings, Users } from "lucide-react";
+import { Moon, Settings, Users } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "./dropdown-menu";
 import AvatarComponent from "./AvatarComponent";
+import { ModeToggle } from "./mode-toggle";
 
 const NavBarDropdown = () => {
   return (
@@ -38,6 +39,13 @@ const NavBarDropdown = () => {
             <Settings className="w-5" />
             Settings
           </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <div className="text-right flex justify-start gap-2 w-full">
+            <Moon className="w-5" />
+            Dark Mode
+          </div>
+          <ModeToggle variant="switch" />
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>

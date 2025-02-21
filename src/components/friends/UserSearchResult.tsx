@@ -1,8 +1,7 @@
 import { UserDTO } from "@/apiclient/models/UserDTO";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
-import { Button } from "../ui/button";
-import { toast } from "sonner";
+import AddFriendButton from "./AddFriendButton";
 
 interface UserSearchResultProps {
   user: UserDTO;
@@ -21,15 +20,7 @@ const UserSearchResult = ({ user }: UserSearchResultProps) => {
           </Avatar>
           <p className="font-semibold text-lg">{user.username}</p>
         </div>
-        <Button
-          variant="default"
-          className="font-semibold"
-          onClick={() => {
-            toast("Not implemented yet!");
-          }}
-        >
-          Add Friend
-        </Button>
+        <AddFriendButton userName={user.username} />
       </div>
     );
   }

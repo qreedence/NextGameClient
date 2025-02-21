@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import NavBarDropdown from "./NavBarDropdown";
 import useAuth from "../../hooks/useAuth";
 import { ModeToggle } from "./mode-toggle";
+import NotificationsDropdown from "../notifications/NotificationsDropDown";
 
 const NavBar = () => {
   const { isAuthenticated, userProfile } = useAuth();
@@ -15,9 +16,10 @@ const NavBar = () => {
           </Link>
         </div>
         <div className="flex gap-2 items-center">
-          <ModeToggle />
+          {!isAuthenticated && <ModeToggle variant="button" />}
           {isAuthenticated && userProfile ? (
             <div className="flex items-center gap-4">
+              <NotificationsDropdown />
               <NavBarDropdown />
             </div>
           ) : (
