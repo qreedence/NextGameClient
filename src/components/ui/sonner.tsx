@@ -12,9 +12,9 @@ const Toaster = ({ ...props }: ToasterProps) => {
       className="toaster group"
       toastOptions={{
         style: {
-          backgroundColor: "var(--background)",
+          backgroundColor: "var(--primary)",
           color: "var(--foreground)",
-          border: "1px solid var(--border)",
+          border: "1px solid var(--muted-foreground)",
           boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
         },
         actionButtonStyle: {

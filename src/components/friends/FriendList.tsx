@@ -1,5 +1,5 @@
 const FriendList = () => {
-  return <p>Hej</p>;
+  return <p>Not implemented yet.</p>;
 };
 
 export default FriendList;

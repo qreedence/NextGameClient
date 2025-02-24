@@ -1,7 +1,8 @@
 import { NotificationService } from "@/apiclient";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const useGetNotifications = () => {
+  const queryClient = useQueryClient();
   const { data: notifications, isPending } = useQuery({
     queryKey: ["notifications"],
     queryFn: async () => {
@@ -13,7 +14,16 @@ const useGetNotifications = () => {
     (notification) => !notification.seen
   ).length;
 
-  return { notifications, isPending, unseenNotifications };
+  const invalidateNotifications = () => {
+    queryClient.invalidateQueries({ queryKey: ["notifications"] });
+  };
+
+  return {
+    notifications,
+    isPending,
+    unseenNotifications,
+    invalidateNotifications,
+  };
 };
 
 export default useGetNotifications;
