@@ -3,6 +3,7 @@ import NavBarDropdown from "./NavBarDropdown";
 import useAuth from "../../hooks/useAuth";
 import { ModeToggle } from "./mode-toggle";
 import NotificationsDropdown from "../notifications/NotificationsDropDown";
+import SignalRNotifications from "../notifications/SignalRNotifications";
 
 const NavBar = () => {
   const { isAuthenticated, userProfile } = useAuth();
@@ -19,7 +20,9 @@ const NavBar = () => {
           {!isAuthenticated && <ModeToggle variant="button" />}
           {isAuthenticated && userProfile ? (
             <div className="flex items-center gap-4">
-              <NotificationsDropdown />
+              <SignalRNotifications>
+                <NotificationsDropdown />
+              </SignalRNotifications>
               <NavBarDropdown />
             </div>
           ) : (

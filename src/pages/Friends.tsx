@@ -1,4 +1,5 @@
 import AddFriend from "@/components/friends/AddFriend";
+import FriendList from "@/components/friends/FriendList";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent, TabsList } from "@radix-ui/react-tabs";
@@ -32,7 +33,7 @@ const Friends = () => {
           <TabsContent value="friends" className="mt-0">
             <Card className="w-full">
               <CardContent className="py-2">
-                <p>Stuff</p>
+                <FriendList />
               </CardContent>
             </Card>
           </TabsContent>
