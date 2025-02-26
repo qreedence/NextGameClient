@@ -8,8 +8,8 @@ const FriendList = () => {
 
   if (isPending) {
     return (
-      <div>
-        <PulseLoader />
+      <div className="flex justify-center items-center">
+        <PulseLoader color="white" size={5} />
       </div>
     );
   }
