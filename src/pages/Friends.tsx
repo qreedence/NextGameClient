@@ -28,6 +28,13 @@ const Friends = () => {
             <UserPlus />
             Add Friends
           </TabsTrigger>
+          <TabsTrigger
+            className="justify-start px-4 py-2 text-left flex gap-2"
+            value={"friendRequests"}
+          >
+            <UserPlus />
+            Friend Requests
+          </TabsTrigger>
         </TabsList>
         <div className="flex-1">
           <TabsContent value="friends" className="mt-0">

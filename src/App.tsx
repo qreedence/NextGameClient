@@ -15,6 +15,7 @@ import { Toaster } from "./components/ui/sonner";
 import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import Friends from "./pages/Friends";
+import UserPage from "./pages/UserPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,6 +38,7 @@ function App() {
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/termsofservice" element={<TermsOfService />} />
               <Route path="/login/external/" element={<ExternalToken />} />
+              <Route path="/u/:username" element={<UserPage />} />
               <Route element={<RedirectLoggedIn />}>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
