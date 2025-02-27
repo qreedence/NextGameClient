@@ -1,7 +1,7 @@
 import { UserDTO } from "@/apiclient/models/UserDTO";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
-import AddFriendButton from "./AddFriendButton";
+import FriendRequestButtonRow from "../user/FriendRequestButtonRow";
 
 interface UserSearchResultProps {
   user: UserDTO;
@@ -20,7 +20,10 @@ const UserSearchResult = ({ user }: UserSearchResultProps) => {
           </Avatar>
           <p className="font-semibold text-lg">{user.username}</p>
         </div>
-        <AddFriendButton userName={user.username} />
+        {/* <AddFriendButton userName={user.username} /> */}
+        {user.username && (
+          <FriendRequestButtonRow otherUserUsername={user.username} />
+        )}
       </div>
     );
   }

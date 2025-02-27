@@ -1,4 +1,4 @@
-import { UserCheck, UserX } from "lucide-react";
+import { UserCheck } from "lucide-react";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -6,8 +6,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import UnfriendButton from "./UnfriendButton";
 
-const FriendDropdownMenu = () => {
+interface FriendDropdownMenuProps {
+  username: string;
+}
+
+const FriendDropdownMenu = ({ username }: FriendDropdownMenuProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -21,7 +26,7 @@ const FriendDropdownMenu = () => {
         align="end"
       >
         <DropdownMenuItem>
-          <UserX /> Unfriend
+          <UnfriendButton username={username} />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

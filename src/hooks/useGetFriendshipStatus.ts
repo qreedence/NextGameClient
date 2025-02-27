@@ -1,7 +1,7 @@
 import { UserService } from "@/apiclient/services/UserService";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-const useGetFriendshipStatus = (otherUserUsername: string) => {
+const useGetFriendshipStatus = (otherUserUsername?: string) => {
   const queryClient = useQueryClient();
 
   const { data: friendshipStatus, isPending } = useQuery({
@@ -9,6 +9,7 @@ const useGetFriendshipStatus = (otherUserUsername: string) => {
     queryFn: async () => {
       return UserService.getFriendshipStatus(otherUserUsername);
     },
+    enabled: !!otherUserUsername,
   });
 
   const invalidateGetFriendshipStatus = (username: string) => {

@@ -6,13 +6,14 @@ const useSendFriendRequest = () => {
     mutate: sendFriendRequest,
     error,
     isPending,
+    isSuccess,
   } = useMutation<void, Error, string>({
     mutationFn: async (username: string) => {
-      UserService.addFriend(username);
+      return await UserService.addFriend(username);
     },
   });
 
-  return { sendFriendRequest, error, isPending };
+  return { sendFriendRequest, error, isPending, isSuccess };
 };
 
 export default useSendFriendRequest;
