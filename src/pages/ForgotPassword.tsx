@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import useResetPassword from "@/hooks/useResetPassword";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { PulseLoader } from "react-spinners";
 import { z } from "zod";
 
@@ -39,10 +40,19 @@ const ForgotPassword = () => {
     <Card className="w-[400px] mx-auto py-4">
       <CardContent>
         {isSuccessForgotPassword && (
-          <p>
-            If a user with that email exists, an email with a password reset
-            link has been sent to that address.
-          </p>
+          <>
+            <p className="mb-4">
+              If a user with that email exists, an email with a password reset
+              link has been sent to that address.
+            </p>
+            <Link
+              className="font-bold hover:underline hover:underline-offset-4"
+              to="/login"
+            >
+              Log in
+            </Link>
+            .
+          </>
         )}
         {!isSuccessForgotPassword && (
           <Form {...form}>
