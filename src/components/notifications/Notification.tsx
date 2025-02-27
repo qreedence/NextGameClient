@@ -26,7 +26,7 @@ const Notification = ({ notification }: NotificationProps) => {
       className="flex items-center gap-4 py-2 hover:cursor-pointer"
     >
       <Avatar className="border-2 border-white">
-        <AvatarImage src={""} />
+        <AvatarImage src={notification.avatarUrl!} />
         <AvatarFallback>Placeholder</AvatarFallback>
       </Avatar>
       <p>{notification.data}</p>

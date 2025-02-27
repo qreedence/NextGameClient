@@ -29,15 +29,11 @@ const SignalRNotifications = ({ children }: SignalRNotificationsProps) => {
         setHubConnection(connection);
 
         connection.on("NotificationsUpdated", () => {
-          //   console.log(
-          //     "Received NotificationsUpdated signal. Invalidating query..."
-          //   );
           invalidateNotifications();
           toast("New notification received");
         });
 
         await connection.start();
-        // console.log("SignalR connection started");
       } catch (error) {
         console.error("Error connecting to SignalR hub:", error);
       }
