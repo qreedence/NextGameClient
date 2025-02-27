@@ -44,7 +44,9 @@ const FriendRequestButtonRow = ({
       )}
 
       {/* 1 === Status.Friends */}
-      {friendshipStatus?.status === 1 && <FriendDropdownMenu />}
+      {friendshipStatus?.status === 1 && (
+        <FriendDropdownMenu username={otherUserUsername} />
+      )}
 
       {/* 2 === Status.OutgoingFriendRequest */}
       {friendshipStatus?.status === 2 && (

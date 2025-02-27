@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const useGetFriendList = () => {
   const { data: friends, isPending } = useQuery({
-    queryKey: [""],
+    queryKey: ["friends"],
     queryFn: async () => {
       return UserService.getFriends();
     },

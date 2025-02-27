@@ -5,5 +5,6 @@
 export type UserDTO = {
     username: string;
     avatar?: string | null;
+    accountIsPublic?: boolean;
 };
 

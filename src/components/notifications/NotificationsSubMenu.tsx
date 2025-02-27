@@ -7,10 +7,12 @@ import {
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { Check, Ellipsis } from "lucide-react";
-import { toast } from "sonner";
+import useMarkNotificationAsSeen from "@/hooks/useMarkNotificationAsSeen";
 
 const NotificationsSubMenu = () => {
   const { notifications, unseenNotifications } = useGetNotifications();
+  const { markAllNotificationsAsSeen } = useMarkNotificationAsSeen();
+
   if (unseenNotifications !== undefined && notifications !== undefined) {
     return (
       <DropdownMenu>
@@ -28,7 +30,7 @@ const NotificationsSubMenu = () => {
               className="text-right flex justify-start gap-2 w-full"
               variant="ghost"
               onClick={() => {
-                toast("Not implemented yet!");
+                markAllNotificationsAsSeen();
               }}
             >
               <Check />

@@ -6,14 +6,23 @@ const useMarkNotificationAsSeen = () => {
   const { invalidateNotifications } = useGetNotifications();
   const { mutate: markNotificationAsSeen } = useMutation({
     mutationFn: async (id: string) => {
-      return NotificationService.markNotificationAsSeen(id);
+      return await NotificationService.markNotificationAsSeen(id);
     },
     onSuccess: () => {
       invalidateNotifications();
     },
   });
 
-  return { markNotificationAsSeen };
+  const { mutate: markAllNotificationsAsSeen } = useMutation({
+    mutationFn: async () => {
+      return await NotificationService.markAllNotificationsAsSeen();
+    },
+    onSuccess: () => {
+      invalidateNotifications();
+    },
+  });
+
+  return { markNotificationAsSeen, markAllNotificationsAsSeen };
 };
 
 export default useMarkNotificationAsSeen;

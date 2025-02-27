@@ -22,6 +22,9 @@ export class NotificationService {
             query: {
                 'id': id,
             },
+            errors: {
+                400: `Bad Request`,
+            },
         });
     }
     /**
@@ -33,6 +36,21 @@ export class NotificationService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/notifications',
+        });
+    }
+    /**
+     * Marks all notifications as seen
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static markAllNotificationsAsSeen(): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/notifications/mark-all-as-seen',
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+            },
         });
     }
 }

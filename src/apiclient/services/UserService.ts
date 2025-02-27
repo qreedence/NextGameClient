@@ -77,7 +77,7 @@ export class UserService {
         username?: string,
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
-            method: 'GET',
+            method: 'POST',
             url: '/api/user/add-friend',
             query: {
                 'username': username,
@@ -85,6 +85,23 @@ export class UserService {
             errors: {
                 401: `Unauthorized`,
                 404: `Not Found`,
+            },
+        });
+    }
+    /**
+     * Let a user remove a friend from their friend list
+     * @param username
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static unfriend(
+        username?: string,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/user/unfriend',
+            query: {
+                'username': username,
             },
         });
     }

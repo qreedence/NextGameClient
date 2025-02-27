@@ -11,31 +11,33 @@ interface UserProfileProps {
 
 const UserProfile = ({ user }: UserProfileProps) => {
   const { userProfile: loggedInUser } = useAuth();
-  return (
-    <>
-      <Card className="py-4 flex flex-col">
-        <CardContent>
-          <div className="flex items-center gap-4">
-            <Avatar className="size-12 border-2 border-">
-              <AvatarImage src={user.avatar!}></AvatarImage>
-              <AvatarFallback className="font-bold">
-                {user.username[0].toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
-            <p className="font-semibold text-lg">{user.username}</p>
-          </div>
+  if (user.accountIsPublic) {
+    return (
+      <>
+        <Card className="py-4 flex flex-col">
+          <CardContent>
+            <div className="flex items-center gap-4">
+              <Avatar className="size-12 border-2 border-">
+                <AvatarImage src={user.avatar!}></AvatarImage>
+                <AvatarFallback className="font-bold">
+                  {user.username[0].toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <p className="font-semibold text-lg">{user.username}</p>
+            </div>
 
-          {loggedInUser?.userName !== user.username && (
-            <>
-              <Separator className="my-4" />
-              <FriendRequestButtonRow otherUserUsername={user.username} />
-              <Separator className="my-4" />
-            </>
-          )}
-        </CardContent>
-      </Card>
-    </>
-  );
+            {loggedInUser?.userName !== user.username && (
+              <>
+                <Separator className="my-4" />
+                <FriendRequestButtonRow otherUserUsername={user.username} />
+                <Separator className="my-4" />
+              </>
+            )}
+          </CardContent>
+        </Card>
+      </>
+    );
+  }
 };
 
 export default UserProfile;
