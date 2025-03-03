@@ -16,6 +16,8 @@ import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import Friends from "./pages/Friends";
 import UserPage from "./pages/UserPage";
+import CirclePage from "./pages/CirclePage";
+import Circles from "./pages/Circles";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -51,6 +53,8 @@ function App() {
               <Route element={<RedirectLoggedOut />}>
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/friends" element={<Friends />} />
+                <Route path="/circles" element={<Circles />} />
+                <Route path="/c/:circleId" element={<CirclePage />} />
               </Route>
             </Routes>
             <Toaster />
