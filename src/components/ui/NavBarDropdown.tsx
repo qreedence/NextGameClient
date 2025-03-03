@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import LogoutComponent from "../auth/LogoutComponent";
-import { Moon, Settings, Users } from "lucide-react";
+import { CircleDashed, Moon, Settings, Users } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,7 +21,16 @@ const NavBarDropdown = () => {
         className="w-(--radix-dropdown-menu-trigger-width) min-w-56 mt-1 bg-background text-foreground"
         align="end"
       >
-        <DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link
+            to={"/circles"}
+            className="text-right flex justify-start gap-2 w-full"
+          >
+            <CircleDashed className="w-5" />
+            Circles
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <Link
             to={"/friends"}
             className="text-right flex justify-start gap-2 w-full"
@@ -31,7 +40,7 @@ const NavBarDropdown = () => {
           </Link>
         </DropdownMenuItem>
 
-        <DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <Link
             to={"/settings"}
             className="text-right flex justify-start gap-2 w-full"

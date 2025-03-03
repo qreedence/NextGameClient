@@ -8,6 +8,7 @@ export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { ChangePasswordDTO } from './models/ChangePasswordDTO';
+export type { CircleDTO } from './models/CircleDTO';
 export type { FileUploadRequest } from './models/FileUploadRequest';
 export type { FileUploadRequestPayload } from './models/FileUploadRequestPayload';
 export type { FriendRequestDTO } from './models/FriendRequestDTO';
@@ -25,6 +26,7 @@ export type { UserProfileDTO } from './models/UserProfileDTO';
 export type { UserSettingsDTO } from './models/UserSettingsDTO';
 
 export { AuthService } from './services/AuthService';
+export { CircleService } from './services/CircleService';
 export { MailService } from './services/MailService';
 export { NotificationService } from './services/NotificationService';
 export { SettingsService } from './services/SettingsService';
