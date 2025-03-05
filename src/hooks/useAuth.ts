@@ -4,11 +4,9 @@ import { useStore } from "../stores/useStore";
 import { AuthService } from "../apiclient/services/AuthService";
 import { ApiError, LoginDTO, RegisterDTO } from "../apiclient";
 import { useEffect } from "react";
-import useGetNotifications from "./useGetNotifications";
 
 const useAuth = () => {
   const queryClient = useQueryClient();
-  const { invalidateNotifications } = useGetNotifications();
   const { isAuthenticated: storedIsAuthenticated, setAuthenticated } =
     useStore();
 
@@ -46,7 +44,6 @@ const useAuth = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["isAuthenticated"] });
-      invalidateNotifications();
     },
   });
 

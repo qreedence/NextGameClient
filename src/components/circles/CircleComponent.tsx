@@ -1,7 +1,7 @@
 import useGetCircle from "@/hooks/circles/useGetCircle";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Separator } from "../ui/separator";
-import { Gamepad2, ListPlus, RotateCw, UserPlus, Users } from "lucide-react";
+import { Gamepad2, ListPlus, RotateCw, Users } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -11,7 +11,8 @@ import {
 } from "../ui/card";
 import { Button } from "../ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { toast } from "sonner";
+import CircleOptionsDropdown from "./CircleOptionsDropdown";
+import CircleInviteDialog from "./CircleInviteDialog";
 
 interface CircleComponent {
   id: string;
@@ -23,15 +24,13 @@ const CircleComponent = ({ id }: CircleComponent) => {
   return (
     <>
       <div className="flex justify-between">
-        <p>{circle?.name} Component</p>
-        <Button
-          onClick={() => {
-            toast("Not implemented yet!");
-          }}
-        >
-          <UserPlus />
-          Invite friend
-        </Button>
+        <p className="font-black text-3xl tracking-normal">{circle?.name}</p>
+        <div className="flex items-center gap-2">
+          <CircleInviteDialog circleId={id} />
+          {circle !== undefined && (
+            <CircleOptionsDropdown circleId={circle.id} />
+          )}
+        </div>
       </div>
       <Separator className="my-4" />
       <div className="container grid gap-6 py-6 xl:grid-cols-[1fr_350px]">

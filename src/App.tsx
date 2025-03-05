@@ -18,6 +18,7 @@ import Friends from "./pages/Friends";
 import UserPage from "./pages/UserPage";
 import CirclePage from "./pages/CirclePage";
 import Circles from "./pages/Circles";
+import CircleInvitationPage from "./pages/CircleInvitationPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -55,6 +56,10 @@ function App() {
                 <Route path="/friends" element={<Friends />} />
                 <Route path="/circles" element={<Circles />} />
                 <Route path="/c/:circleId" element={<CirclePage />} />
+                <Route
+                  path="/c/invitation/:circleInvitationId"
+                  element={<CircleInvitationPage />}
+                />
               </Route>
             </Routes>
             <Toaster />

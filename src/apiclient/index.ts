@@ -9,6 +9,7 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { ChangePasswordDTO } from './models/ChangePasswordDTO';
 export type { CircleDTO } from './models/CircleDTO';
+export type { CircleInvitationDTO } from './models/CircleInvitationDTO';
 export type { FileUploadRequest } from './models/FileUploadRequest';
 export type { FileUploadRequestPayload } from './models/FileUploadRequestPayload';
 export type { FriendRequestDTO } from './models/FriendRequestDTO';
@@ -24,6 +25,7 @@ export type { RegisterDTO } from './models/RegisterDTO';
 export type { UserDTO } from './models/UserDTO';
 export type { UserProfileDTO } from './models/UserProfileDTO';
 export type { UserSettingsDTO } from './models/UserSettingsDTO';
+export type { UserToInviteToCircleDTO } from './models/UserToInviteToCircleDTO';
 
 export { AuthService } from './services/AuthService';
 export { CircleService } from './services/CircleService';

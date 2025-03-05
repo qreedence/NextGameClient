@@ -1,7 +1,8 @@
 import { CircleService } from "@/apiclient";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const useGetCircle = (circleId: string) => {
+  const queryClient = useQueryClient();
   const { data: circle, isPending } = useQuery({
     queryKey: ["circle", circleId],
     queryFn: async () => {
@@ -9,7 +10,11 @@ const useGetCircle = (circleId: string) => {
     },
   });
 
-  return { circle, isPending };
+  const invalidateCircle = () => {
+    queryClient.invalidateQueries({ queryKey: ["circle", circleId] });
+  };
+
+  return { circle, isPending, invalidateCircle };
 };
 
 export default useGetCircle;
