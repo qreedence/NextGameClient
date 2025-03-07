@@ -13,7 +13,10 @@ const CircleInviteButton = ({
   userName,
   inviteSent,
 }: CircleInviteButtonProps) => {
-  const { inviteToCircle, isPending } = useInviteToCircle();
+  const { inviteToCircle, isPending } = useInviteToCircle({
+    circleId,
+    username: userName,
+  });
 
   const handleClick = () => {
     inviteToCircle({ circleId, username: userName });

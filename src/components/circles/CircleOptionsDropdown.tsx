@@ -14,7 +14,7 @@ interface CircleOptionsDropdownProps {
 }
 
 const CircleOptionsDropdown = ({ circleId }: CircleOptionsDropdownProps) => {
-  const { leaveCircle } = useLeaveCircle({ circleId });
+  const { leaveCircle } = useLeaveCircle();
   const navigate = useNavigate();
 
   return (

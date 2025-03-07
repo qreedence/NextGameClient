@@ -4,34 +4,46 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import useCircleInvitationResponse from "@/hooks/circles/useCircleInvitationResponse";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PulseLoader } from "react-spinners";
 
-const CircleInvitationPage = () => {
-  const { circleInvitationId } = useParams<{ circleInvitationId: string }>();
+interface CircleInvitationResponseProps {
+  circleId: string;
+}
 
-  const circleInvitationIdNumber = circleInvitationId
-    ? parseInt(circleInvitationId, 10)
-    : NaN;
-
-  const { circleInvitationResponse } = useCircleInvitationResponse({
-    invitationId: circleInvitationIdNumber,
-  });
-
-  const handleOnClick = (response: boolean) => {
-    circleInvitationResponse(response);
-  };
+const CircleInvitationResponse = ({
+  circleId,
+}: CircleInvitationResponseProps) => {
+  const navigate = useNavigate();
 
   const {
     data: circleInvitation,
     isPending,
     isError,
   } = useQuery({
-    queryKey: ["circleInvitation", circleInvitationId],
+    queryKey: ["circleInvitation", circleId],
     queryFn: async () => {
-      return await CircleService.getCircleInvitation(circleInvitationIdNumber);
+      return await CircleService.getCircleInvitation(circleId);
     },
+    retry: false,
   });
+
+  const { circleInvitationResponse } = useCircleInvitationResponse({
+    invitationId: circleInvitation?.id,
+    circleId: circleId,
+  });
+
+  const handleOnClick = (response: boolean) => {
+    circleInvitationResponse(response, {
+      onSuccess: () => {
+        if (response === true) {
+          navigate("/circles");
+        } else {
+          navigate("/");
+        }
+      },
+    });
+  };
 
   if (isPending) {
     return (
@@ -41,12 +53,7 @@ const CircleInvitationPage = () => {
     );
   }
 
-  if (isError)
-    return (
-      <div className="flex items-center justify-center">
-        <p>Sorry, it seems like we couldn't find your invitation.</p>
-      </div>
-    );
+  if (isError) return <></>;
 
   if (circleInvitation) {
     return (
@@ -81,4 +88,4 @@ const CircleInvitationPage = () => {
   }
 };
 
-export default CircleInvitationPage;
+export default CircleInvitationResponse;

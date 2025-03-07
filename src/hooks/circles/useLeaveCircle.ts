@@ -1,19 +1,21 @@
-import { CircleService } from "@/apiclient";
+import { ApiError, CircleService } from "@/apiclient";
 import { useMutation } from "@tanstack/react-query";
-import useGetCircle from "./useGetCircle";
+import { toast } from "sonner";
+import useGetCirclesForUser from "./useGetCirclesForUser";
 
-interface LeaveCircleProps {
-  circleId: string;
-}
-
-const useLeaveCircle = ({ circleId }: LeaveCircleProps) => {
-  const { invalidateCircle } = useGetCircle(circleId);
+const useLeaveCircle = () => {
+  const { invalidateCircles } = useGetCirclesForUser();
   const { mutate: leaveCircle, isPending } = useMutation({
     mutationFn: async (circleId: string) => {
       return await CircleService.leaveCircle(circleId);
     },
     onSuccess: async () => {
-      invalidateCircle();
+      invalidateCircles();
+    },
+    onError: (e) => {
+      if (e instanceof ApiError) {
+        toast(e.body);
+      }
     },
   });
 

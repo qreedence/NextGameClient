@@ -17,6 +17,14 @@ const useGetCirclesForUser = () => {
 
   const invalidateCircles = () => {
     queryClient.invalidateQueries({ queryKey: ["circles", userName] });
+    if (circles !== undefined) {
+      circles.forEach((circle) => {
+        queryClient.invalidateQueries({ queryKey: ["circle", circle.id] });
+        queryClient.refetchQueries({
+          queryKey: ["circleInvitation", circle.id],
+        });
+      });
+    }
   };
 
   return { circles, isPending, invalidateCircles };

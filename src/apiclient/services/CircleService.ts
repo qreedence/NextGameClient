@@ -114,14 +114,36 @@ export class CircleService {
      * @returns CircleInvitationDTO OK
      * @throws ApiError
      */
-    public static getCircleInvitation(
+    public static getCircleInvitationById(
         circleInvitationId?: number,
+    ): CancelablePromise<CircleInvitationDTO> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/circle/invitation-by-id',
+            query: {
+                'circleInvitationId': circleInvitationId,
+            },
+        });
+    }
+    /**
+     * Get a circle invitation by circleId and user
+     * @param circleId
+     * @returns CircleInvitationDTO OK
+     * @throws ApiError
+     */
+    public static getCircleInvitation(
+        circleId?: string,
     ): CancelablePromise<CircleInvitationDTO> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/circle/invitation',
             query: {
-                'circleInvitationId': circleInvitationId,
+                'circleId': circleId,
+            },
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+                404: `Not Found`,
             },
         });
     }
