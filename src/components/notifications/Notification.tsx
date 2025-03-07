@@ -2,6 +2,7 @@ import { NotificationDTO } from "@/apiclient/models/NotificationDTO";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { useNavigate } from "react-router-dom";
 import useMarkNotificationAsSeen from "@/hooks/useMarkNotificationAsSeen";
+import useGetCirclesForUser from "@/hooks/circles/useGetCirclesForUser";
 
 interface NotificationProps {
   notification: NotificationDTO;
@@ -9,9 +10,15 @@ interface NotificationProps {
 
 const Notification = ({ notification }: NotificationProps) => {
   const navigate = useNavigate();
+  const { invalidateCircles } = useGetCirclesForUser();
   const { markNotificationAsSeen } = useMarkNotificationAsSeen();
 
   const handleOnClick = () => {
+    //1: Circle invitation
+    if (notification.type === 1) {
+      invalidateCircles();
+    }
+
     if (notification.actionUrl && notification.id) {
       if (notification.seen === false) {
         markNotificationAsSeen(notification.id);

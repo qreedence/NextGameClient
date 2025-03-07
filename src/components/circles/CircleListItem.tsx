@@ -9,8 +9,8 @@ interface CircleListItemProps {
 
 const CircleListItem = ({ circleDTO }: CircleListItemProps) => {
   return (
-    <Link to={`/c/${circleDTO?.id}`}>
-      <Card className="w-max p-2 shadow-md bg-primary hover:cursor-pointer">
+    <Card className="w-max p-2 shadow-md bg-primary hover:cursor-pointer">
+      <Link to={`/c/${circleDTO?.id}`}>
         <CardHeader>
           <p className="font-bold tracking-wider text-lg">{circleDTO.name}</p>
         </CardHeader>
@@ -37,8 +37,8 @@ const CircleListItem = ({ circleDTO }: CircleListItemProps) => {
               ))}
           </div>
         </CardContent>
-      </Card>
-    </Link>
+      </Link>
+    </Card>
   );
 };
 

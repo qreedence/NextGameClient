@@ -1,12 +1,20 @@
 import CircleComponent from "@/components/circles/CircleComponent";
+import CircleInvitationResponse from "@/components/circles/CircleInvitationResponse";
+import useGetCircle from "@/hooks/circles/useGetCircle";
 import { useParams } from "react-router-dom";
 
 const CirclePage = () => {
   const { circleId } = useParams<{ circleId: string }>();
-  if (circleId !== undefined) {
+  const { circle, error } = useGetCircle(circleId!);
+
+  if (error?.message === "Unauthorized" && circleId) {
+    return <CircleInvitationResponse circleId={circleId} />;
+  }
+
+  if (circle) {
     return (
       <div>
-        <CircleComponent id={circleId} />
+        <CircleComponent circleDTO={circle} />
       </div>
     );
   }

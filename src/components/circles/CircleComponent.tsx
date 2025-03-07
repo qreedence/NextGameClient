@@ -1,7 +1,6 @@
-import useGetCircle from "@/hooks/circles/useGetCircle";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Separator } from "../ui/separator";
-import { Gamepad2, ListPlus, RotateCw, UserPlus, Users } from "lucide-react";
+import { Gamepad2, ListPlus, RotateCw, Users } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -11,27 +10,23 @@ import {
 } from "../ui/card";
 import { Button } from "../ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { toast } from "sonner";
+import CircleOptionsDropdown from "./CircleOptionsDropdown";
+import CircleInviteDialog from "./CircleInviteDialog";
+import { CircleDTO } from "@/apiclient";
 
 interface CircleComponent {
-  id: string;
+  circleDTO: CircleDTO;
 }
 
-const CircleComponent = ({ id }: CircleComponent) => {
-  const { circle } = useGetCircle(id);
-
+const CircleComponent = ({ circleDTO }: CircleComponent) => {
   return (
     <>
       <div className="flex justify-between">
-        <p>{circle?.name} Component</p>
-        <Button
-          onClick={() => {
-            toast("Not implemented yet!");
-          }}
-        >
-          <UserPlus />
-          Invite friend
-        </Button>
+        <p className="font-black text-3xl tracking-normal">{circleDTO.name}</p>
+        <div className="flex items-center gap-2">
+          <CircleInviteDialog circleId={circleDTO.id} />
+          <CircleOptionsDropdown circleId={circleDTO.id} />
+        </div>
       </div>
       <Separator className="my-4" />
       <div className="container grid gap-6 py-6 xl:grid-cols-[1fr_350px]">
@@ -76,7 +71,7 @@ const CircleComponent = ({ id }: CircleComponent) => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {circle?.activeMembers?.map((userDTO) => (
+                {circleDTO.activeMembers?.map((userDTO) => (
                   <div
                     key={userDTO.username}
                     className="flex items-center gap-4"

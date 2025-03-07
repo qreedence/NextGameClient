@@ -1,15 +1,33 @@
 import { CircleService } from "@/apiclient";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import useAuth from "../useAuth";
 
 const useGetCirclesForUser = () => {
+  const { userProfile } = useAuth();
+  const queryClient = useQueryClient();
+
+  const userName = userProfile?.userName;
+
   const { data: circles, isPending } = useQuery({
-    queryKey: ["circles"],
+    queryKey: ["circles", userName],
     queryFn: async () => {
       return CircleService.getCirclesByUser();
     },
   });
 
-  return { circles, isPending };
+  const invalidateCircles = () => {
+    queryClient.invalidateQueries({ queryKey: ["circles", userName] });
+    if (circles !== undefined) {
+      circles.forEach((circle) => {
+        queryClient.invalidateQueries({ queryKey: ["circle", circle.id] });
+        queryClient.refetchQueries({
+          queryKey: ["circleInvitation", circle.id],
+        });
+      });
+    }
+  };
+
+  return { circles, isPending, invalidateCircles };
 };
 
 export default useGetCirclesForUser;
