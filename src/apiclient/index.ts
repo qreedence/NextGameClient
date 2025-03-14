@@ -17,6 +17,7 @@ export type { FriendRequestResponse } from './models/FriendRequestResponse';
 export type { FriendRequestStatus } from './models/FriendRequestStatus';
 export type { FriendshipStatus } from './models/FriendshipStatus';
 export type { FriendshipStatusDTO } from './models/FriendshipStatusDTO';
+export type { GameSearchResultDTO } from './models/GameSearchResultDTO';
 export type { LoginDTO } from './models/LoginDTO';
 export type { NotificationDTO } from './models/NotificationDTO';
 export type { NotificationType } from './models/NotificationType';
@@ -29,6 +30,7 @@ export type { UserToInviteToCircleDTO } from './models/UserToInviteToCircleDTO';
 
 export { AuthService } from './services/AuthService';
 export { CircleService } from './services/CircleService';
+export { GameService } from './services/GameService';
 export { MailService } from './services/MailService';
 export { NotificationService } from './services/NotificationService';
 export { SettingsService } from './services/SettingsService';

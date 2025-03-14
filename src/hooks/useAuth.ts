@@ -38,7 +38,11 @@ const useAuth = () => {
   });
 
   //login
-  const { mutate: login } = useMutation<void, Error, LoginDTO>({
+  const { mutate: login, error: loginError } = useMutation<
+    void,
+    ApiError,
+    LoginDTO
+  >({
     mutationFn: async (loginDTO: LoginDTO) => {
       return await AuthService.loginUser(loginDTO);
     },
@@ -100,6 +104,7 @@ const useAuth = () => {
     userProfile,
     isLoadingProfile,
     login,
+    loginError,
     logout,
     externalAuthComplete,
     invalidateUserProfile,
