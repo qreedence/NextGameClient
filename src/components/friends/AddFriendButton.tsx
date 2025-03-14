@@ -16,7 +16,7 @@ const AddFriendButton = ({ userName }: AddFriendButtonProps) => {
       variant="default"
       className="font-semibold"
       onClick={async () => {
-        sendFriendRequest(userName, {
+        await sendFriendRequest(userName, {
           onSuccess: () => {
             invalidateGetFriendshipStatus(userName);
           },

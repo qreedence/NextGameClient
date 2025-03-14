@@ -16,9 +16,10 @@ import { LoginDTO } from "@/apiclient/models/LoginDTO";
 import { Checkbox } from "../ui/checkbox";
 import useAuth from "@/hooks/useAuth";
 import { loginSchema, LoginSchemaType } from "@/schemas/loginSchema";
+import AlertError from "../ui/AlertError";
 
 const LoginForm = () => {
-  const { login } = useAuth();
+  const { login, loginError } = useAuth();
 
   const form = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
@@ -102,6 +103,7 @@ const LoginForm = () => {
             </FormItem>
           )}
         />
+        {loginError && <AlertError errorMessage={loginError.body} />}
         <Button type="submit" className="w-full">
           Login
         </Button>

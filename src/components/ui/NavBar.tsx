@@ -4,6 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import { ModeToggle } from "./mode-toggle";
 import NotificationsDropdown from "../notifications/NotificationsDropDown";
 import SignalRNotifications from "../notifications/SignalRNotifications";
+import GameSearchBar from "../games/search/GameSearchBar";
 
 const NavBar = () => {
   const { isAuthenticated, userProfile } = useAuth();
@@ -15,6 +16,9 @@ const NavBar = () => {
           <Link to="/" className="btn btn-ghost text-xl font-bold">
             Home
           </Link>
+        </div>
+        <div>
+          <GameSearchBar />
         </div>
         <div className="flex gap-2 items-center">
           {!isAuthenticated && <ModeToggle variant="button" />}
