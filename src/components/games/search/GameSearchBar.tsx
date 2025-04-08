@@ -13,7 +13,7 @@ const GameSearchBar = () => {
   const debouncedSetSearchTerm = useCallback(
     debounce((value: string) => {
       setDebouncedSearchTerm(value);
-    }, 100),
+    }, 200),
     []
   );
 

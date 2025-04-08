@@ -23,4 +23,14 @@ export class GameService {
             },
         });
     }
+    /**
+     * @returns GameSearchResultDTO OK
+     * @throws ApiError
+     */
+    public static getApiGameNew(): CancelablePromise<Array<GameSearchResultDTO>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/game/new',
+        });
+    }
 }
