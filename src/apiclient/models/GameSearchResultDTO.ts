@@ -9,5 +9,7 @@ export type GameSearchResultDTO = {
     coverUrl?: string | null;
     first_release_date?: number | null;
     firstReleaseDate?: string;
+    aggregated_rating?: number;
+    aggregated_rating_count?: number;
 };
 

@@ -5,7 +5,7 @@ const useGetNewGames = () => {
   const { data: newGames, isPending } = useQuery({
     queryKey: ["newGames"],
     queryFn: async () => {
-      return await GameService.getApiGameNew();
+      return await GameService.new();
     },
   });
 
