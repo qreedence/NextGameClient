@@ -17,7 +17,7 @@ const NavBar = () => {
             Home
           </Link>
         </div>
-        <div>
+        <div className="mr-2">
           <GameSearchBar />
         </div>
         <div className="flex gap-2 items-center">
