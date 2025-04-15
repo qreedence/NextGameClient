@@ -13,14 +13,15 @@ import { Link } from "react-router-dom";
 interface GameGridProps {
   title: string;
   games: GameSearchResultDTO[];
+  seeAllUrl: string;
 }
-const GameGrid = ({ games, title }: GameGridProps) => {
+const GameGrid = ({ games, title, seeAllUrl }: GameGridProps) => {
   if (games && games.length > 0) {
     return (
       <div>
         <div className="flex items-end justify-between">
           <h1 className="font-bold text-3xl">{title}</h1>
-          <Link to={"/games/new"} className="underline underline-offset-3">
+          <Link to={seeAllUrl} className="underline underline-offset-3">
             See All
           </Link>
         </div>

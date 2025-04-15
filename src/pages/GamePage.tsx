@@ -22,7 +22,7 @@ const GamePage = () => {
 
   if (isPending) {
     return (
-      <div className="flex items-center justify-center">
+      <div className="w-full h-full flex items-center justify-center">
         <PulseLoader color="white" size={12} />
       </div>
     );

@@ -7,7 +7,11 @@ const NewGames = () => {
   if (highestRatedGames) {
     return (
       <div>
-        <GameGrid games={highestRatedGames} title={"Highest Rated of 2025"} />
+        <GameGrid
+          games={highestRatedGames}
+          title={"Highest Rated of 2025"}
+          seeAllUrl={"/games/top/2025"}
+        />
       </div>
     );
   }
