@@ -7,6 +7,9 @@ export type GameSuggestion = {
     id?: number;
     circleId?: string;
     gameId?: number;
+    gameName?: string;
+    gameCoverUrl?: string;
+    suggestedBy?: string;
     votes?: Array<GameVote>;
 };
 

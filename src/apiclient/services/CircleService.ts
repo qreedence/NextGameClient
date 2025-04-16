@@ -50,12 +50,16 @@ export class CircleService {
      * Suggest a game to a circle.
      * @param circleId
      * @param gameId
+     * @param gameName
+     * @param gameCoverUrl
      * @returns any OK
      * @throws ApiError
      */
     public static suggestGame(
         circleId?: string,
         gameId?: number,
+        gameName?: string,
+        gameCoverUrl?: string,
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -63,6 +67,8 @@ export class CircleService {
             query: {
                 'circleId': circleId,
                 'gameId': gameId,
+                'gameName': gameName,
+                'gameCoverUrl': gameCoverUrl,
             },
         });
     }
