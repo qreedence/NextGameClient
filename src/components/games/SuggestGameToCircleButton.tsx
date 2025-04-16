@@ -10,16 +10,30 @@ import TooltipComponent from "@/components/ui/TooltipComponent"; // Adjust path 
 import useGetCirclesForUser from "@/hooks/circles/useGetCirclesForUser";
 import useSuggestGameToCircle from "@/hooks/circles/useSuggestGameToCircle";
 import { FaCheckCircle, FaCircle } from "react-icons/fa";
+import useAuth from "@/hooks/useAuth";
 
 interface SuggestGameToCircleButtonProps {
   gameId: number;
+  gameName: string;
+  gameCoverUrl: string;
 }
 
 const SuggestGameToCircleButton = ({
   gameId,
+  gameName,
+  gameCoverUrl,
 }: SuggestGameToCircleButtonProps) => {
-  const { suggestGame, isPending } = useSuggestGameToCircle({ gameId });
+  const { isAuthenticated } = useAuth();
+  const { suggestGame, isPending } = useSuggestGameToCircle({
+    gameId,
+    gameName,
+    gameCoverUrl,
+  });
   const { circles } = useGetCirclesForUser();
+
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <DropdownMenu>

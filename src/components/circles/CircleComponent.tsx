@@ -13,6 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import CircleOptionsDropdown from "./CircleOptionsDropdown";
 import CircleInviteDialog from "./CircleInviteDialog";
 import { CircleDTO } from "@/apiclient";
+import CircleSuggestions from "./CircleSuggestions";
 
 interface CircleComponent {
   circleDTO: CircleDTO;
@@ -56,7 +57,7 @@ const CircleComponent = ({ circleDTO }: CircleComponent) => {
               <p>In rotation.</p>
             </TabsContent>
             <TabsContent value="suggestions">
-              <p>Suggestion queue.</p>
+              <CircleSuggestions circleId={circleDTO.id} />
             </TabsContent>
           </Tabs>
         </div>

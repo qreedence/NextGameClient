@@ -46,7 +46,13 @@ const GamePage = () => {
               <Button className="w-full">
                 <BiLoaderCircle />
               </Button>{" "} */}
-              {game.id && <SuggestGameToCircleButton gameId={game.id} />}
+              {game.id && game.name && game.coverUrl && (
+                <SuggestGameToCircleButton
+                  gameId={game.id}
+                  gameName={game.name}
+                  gameCoverUrl={game.coverUrl}
+                />
+              )}
             </div>
             <div className="flex flex-col"></div>
           </div>

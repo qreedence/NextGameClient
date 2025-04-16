@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type UserDTO = {
+    userId: string;
     username: string;
     avatar?: string | null;
     accountIsPublic?: boolean;

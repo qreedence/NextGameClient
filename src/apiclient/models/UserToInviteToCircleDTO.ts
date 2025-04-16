@@ -4,6 +4,7 @@
 /* eslint-disable */
 export type UserToInviteToCircleDTO = {
     inviteSent?: boolean;
+    userId: string;
     username: string;
     avatar?: string | null;
     accountIsPublic?: boolean;

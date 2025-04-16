@@ -18,7 +18,6 @@ const useInviteToCircle = ({ circleId, username }: InviteToCircleProps) => {
       return await CircleService.inviteToCircle(circleId, username);
     },
     onSuccess: async () => {
-      // Update the query data directly
       queryClient.setQueriesData(
         { queryKey: ["friendSearchResult", circleId] },
         (oldData: UserToInviteToCircleDTO[]) => {
