@@ -37,6 +37,23 @@ export class GameService {
         });
     }
     /**
+     * Get all new games, paginated
+     * @param page
+     * @returns GameSearchResultDTO OK
+     * @throws ApiError
+     */
+    public static getAllNew(
+        page?: number,
+    ): CancelablePromise<Array<GameSearchResultDTO>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/game/new/all',
+            query: {
+                'page': page,
+            },
+        });
+    }
+    /**
      * Get a specific game by ID.
      * @param gameId
      * @returns GameDTO OK
@@ -69,6 +86,26 @@ export class GameService {
             url: '/api/game/top',
             query: {
                 'year': year,
+            },
+        });
+    }
+    /**
+     * Get all new highest rated games for a given year, paginated
+     * @param year
+     * @param page
+     * @returns GameSearchResultDTO OK
+     * @throws ApiError
+     */
+    public static getAllHighestRated(
+        year?: number,
+        page?: number,
+    ): CancelablePromise<Array<GameSearchResultDTO>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/game/top/all',
+            query: {
+                'year': year,
+                'page': page,
             },
         });
     }

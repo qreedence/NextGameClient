@@ -19,6 +19,8 @@ import UserPage from "./pages/UserPage";
 import CirclePage from "./pages/CirclePage";
 import Circles from "./pages/Circles";
 import GamePage from "./pages/GamePage";
+import GamesNew from "./pages/GamesNew";
+import GamesHighestRated from "./pages/GamesHighestRated";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -38,11 +40,13 @@ function App() {
           <div className="md:px-[20%]">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/games/new" element={<GamesNew />} />
+              <Route path="/games/top/:year" element={<GamesHighestRated />} />
+              <Route path="/game/:id" element={<GamePage />} />
+              <Route path="/u/:username" element={<UserPage />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/termsofservice" element={<TermsOfService />} />
               <Route path="/login/external/" element={<ExternalToken />} />
-              <Route path="/u/:username" element={<UserPage />} />
-              <Route path="/game/:id" element={<GamePage />} />
               <Route element={<RedirectLoggedIn />}>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />

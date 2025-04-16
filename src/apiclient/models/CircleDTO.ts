@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { GameSuggestion } from './GameSuggestion';
 import type { UserDTO } from './UserDTO';
 export type CircleDTO = {
     id: string;
@@ -9,5 +10,6 @@ export type CircleDTO = {
     createdBy: UserDTO;
     createdAt: string;
     activeMembers?: Array<UserDTO>;
+    suggestionQueue?: Array<GameSuggestion>;
 };
 
