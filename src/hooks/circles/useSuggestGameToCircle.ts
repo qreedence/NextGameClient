@@ -16,15 +16,14 @@ const useSuggestGameToCircle = ({
 
   const { mutate: suggestGame, isPending } = useMutation({
     mutationFn: async (circleId: string) => {
-      return await CircleService.suggestGame(
-        circleId,
-        gameId,
-        gameName,
-        gameCoverUrl
-      );
+      await CircleService.suggestGame(circleId, gameId, gameName, gameCoverUrl);
+      return circleId;
     },
     onSuccess: async (circleId) => {
-      queryClient.invalidateQueries({ queryKey: ["suggestedGames", circleId] });
+      console.log("Successfully suggested game, invalidating:", circleId);
+      await queryClient.invalidateQueries({
+        queryKey: ["suggestedGames", circleId],
+      });
     },
   });
 

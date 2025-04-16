@@ -4,7 +4,8 @@
 /* eslint-disable */
 import type { CircleDTO } from '../models/CircleDTO';
 import type { CircleInvitationDTO } from '../models/CircleInvitationDTO';
-import type { GameSuggestion } from '../models/GameSuggestion';
+import type { GameSuggestionDTO } from '../models/GameSuggestionDTO';
+import type { GameVoteStatus } from '../models/GameVoteStatus';
 import type { UserToInviteToCircleDTO } from '../models/UserToInviteToCircleDTO';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -73,14 +74,34 @@ export class CircleService {
         });
     }
     /**
+     * Vote for a game in the suggestion queue.
+     * @param gameSuggestionId
+     * @param gameVoteStatus
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static voteForGame(
+        gameSuggestionId?: number,
+        gameVoteStatus?: GameVoteStatus,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/circle/vote',
+            query: {
+                'gameSuggestionId': gameSuggestionId,
+                'gameVoteStatus': gameVoteStatus,
+            },
+        });
+    }
+    /**
      * Get all games in the suggestion queue for a circle.
      * @param circleId
-     * @returns GameSuggestion OK
+     * @returns GameSuggestionDTO OK
      * @throws ApiError
      */
     public static getSuggestedGames(
         circleId?: string,
-    ): CancelablePromise<Array<GameSuggestion>> {
+    ): CancelablePromise<Array<GameSuggestionDTO>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/circle/suggested',

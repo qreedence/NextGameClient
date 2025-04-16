@@ -3,9 +3,10 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { GameVoteStatus } from './GameVoteStatus';
-export type GameVote = {
+import type { UserDTO } from './UserDTO';
+export type GameVoteDTO = {
     id?: number;
-    userId?: string;
+    user: UserDTO;
     status?: GameVoteStatus;
 };
 
