@@ -1,7 +1,6 @@
 import GenreTag from "@/components/games/GenreTag";
 import PlatformTag from "@/components/games/PlatformTag";
 import ScreenshotCarousel from "@/components/games/ScreenshotCarousel";
-import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -13,7 +12,7 @@ import useGetGame from "@/hooks/games/useGetGame";
 import { useParams } from "react-router-dom";
 import { PulseLoader } from "react-spinners";
 import GameLink from "@/components/games/GameLink";
-import { BiLoaderCircle } from "react-icons/bi";
+import SuggestGameToCircleButton from "@/components/games/SuggestGameToCircleButton";
 
 const GamePage = () => {
   const { id } = useParams<{ id: string }>();
@@ -38,7 +37,7 @@ const GamePage = () => {
               src={game.coverUrl ? game.coverUrl : "N/A"}
             />
             <div className="flex gap-2 w-full justify-between">
-              <Button className="w-full">
+              {/* <Button className="w-full">
                 <BiLoaderCircle />
               </Button>
               <Button className="w-full">
@@ -46,10 +45,8 @@ const GamePage = () => {
               </Button>{" "}
               <Button className="w-full">
                 <BiLoaderCircle />
-              </Button>{" "}
-              <Button className="w-full">
-                <BiLoaderCircle />
-              </Button>
+              </Button>{" "} */}
+              {game.id && <SuggestGameToCircleButton gameId={game.id} />}
             </div>
             <div className="flex flex-col"></div>
           </div>
@@ -57,7 +54,7 @@ const GamePage = () => {
             <h1 className="font-black text-3xl w-full">{game.name}</h1>
             <ul className="flex flex-row flex-wrap gap-2">
               {game.platforms?.map((platform) => (
-                <li className="text-right" key={platform}>
+                <li className="text-right" key={`${platform}-${game.id}`}>
                   <PlatformTag platform={platform} />
                 </li>
               ))}
@@ -90,7 +87,7 @@ const GamePage = () => {
                   <TableCell>Genre(s):</TableCell>
                   <TableCell className="flex gap-2">
                     {game.genres?.map((genre) => (
-                      <GenreTag genre={genre} />
+                      <GenreTag key={`${genre}-${game.id}`} genre={genre} />
                     ))}
                   </TableCell>
                 </TableRow>

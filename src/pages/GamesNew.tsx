@@ -25,6 +25,7 @@ const GamesNew = () => {
       totalPages={100}
       baseUrl={"games/new"}
       showPagination={true}
+      showFilter={true}
     />
   );
 };

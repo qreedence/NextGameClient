@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { CircleDTO } from '../models/CircleDTO';
 import type { CircleInvitationDTO } from '../models/CircleInvitationDTO';
+import type { GameSuggestion } from '../models/GameSuggestion';
 import type { UserToInviteToCircleDTO } from '../models/UserToInviteToCircleDTO';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -42,6 +43,43 @@ export class CircleService {
             errors: {
                 400: `Bad Request`,
                 401: `Unauthorized`,
+            },
+        });
+    }
+    /**
+     * Suggest a game to a circle.
+     * @param circleId
+     * @param gameId
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static suggestGame(
+        circleId?: string,
+        gameId?: number,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/circle/suggest',
+            query: {
+                'circleId': circleId,
+                'gameId': gameId,
+            },
+        });
+    }
+    /**
+     * Get all games in the suggestion queue for a circle.
+     * @param circleId
+     * @returns GameSuggestion OK
+     * @throws ApiError
+     */
+    public static getSuggestedGames(
+        circleId?: string,
+    ): CancelablePromise<Array<GameSuggestion>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/circle/suggested',
+            query: {
+                'circleId': circleId,
             },
         });
     }

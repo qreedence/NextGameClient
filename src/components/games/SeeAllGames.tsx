@@ -6,6 +6,8 @@ import { IoGrid, IoListSharp } from "react-icons/io5";
 import { toast } from "sonner";
 import { GameSearchResultDTO } from "@/apiclient";
 import { PulseLoader } from "react-spinners";
+import { FaFilter } from "react-icons/fa";
+import TooltipComponent from "../ui/TooltipComponent";
 
 interface SeeAllGamesProps {
   title: string;
@@ -14,6 +16,7 @@ interface SeeAllGamesProps {
   totalPages: number;
   baseUrl: string;
   showPagination: boolean;
+  showFilter: boolean;
 }
 
 const SeeAllGames = ({
@@ -23,6 +26,7 @@ const SeeAllGames = ({
   totalPages,
   baseUrl,
   showPagination,
+  showFilter,
 }: SeeAllGamesProps) => {
   return (
     <div>
@@ -30,20 +34,35 @@ const SeeAllGames = ({
         <div className="flex justify-between">
           <h1 className="font-black text-3xl w-full">{title}</h1>
           <div className="flex gap-1">
-            <Button
-              onClick={() => {
-                toast("Not implemented yet");
-              }}
-            >
-              <IoGrid />
-            </Button>
-            <Button
-              onClick={() => {
-                toast("Not implemented yet");
-              }}
-            >
-              <IoListSharp />
-            </Button>
+            {showFilter && (
+              <TooltipComponent tooltipText={"Filters"}>
+                <Button
+                  onClick={() => {
+                    toast("Not implemented yet");
+                  }}
+                >
+                  <FaFilter />
+                </Button>
+              </TooltipComponent>
+            )}
+            <TooltipComponent tooltipText={"Grid view"}>
+              <Button
+                onClick={() => {
+                  toast("Not implemented yet");
+                }}
+              >
+                <IoGrid />
+              </Button>
+            </TooltipComponent>
+            <TooltipComponent tooltipText={"List view"}>
+              <Button
+                onClick={() => {
+                  toast("Not implemented yet");
+                }}
+              >
+                <IoListSharp />
+              </Button>
+            </TooltipComponent>
           </div>
         </div>
         <Separator className="h-0.5 my-2" />
