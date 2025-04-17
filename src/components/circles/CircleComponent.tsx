@@ -14,12 +14,17 @@ import CircleOptionsDropdown from "./CircleOptionsDropdown";
 import CircleInviteDialog from "./CircleInviteDialog";
 import { CircleDTO } from "@/apiclient";
 import CircleSuggestions from "./CircleSuggestions";
+import { FaCrown, FaShieldAlt } from "react-icons/fa";
 
 interface CircleComponent {
   circleDTO: CircleDTO;
 }
 
 const CircleComponent = ({ circleDTO }: CircleComponent) => {
+  const sortedMembers = circleDTO.activeMembers
+    ?.slice()
+    .sort((a, b) => a.role - b.role);
+
   return (
     <>
       <div className="flex justify-between">
@@ -72,26 +77,30 @@ const CircleComponent = ({ circleDTO }: CircleComponent) => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {circleDTO.activeMembers?.map((userDTO) => (
+                {sortedMembers?.map((circleMember) => (
                   <div
-                    key={userDTO.username}
+                    key={`${circleMember.user.userId}-${circleDTO.id}`}
                     className="flex items-center gap-4"
                   >
                     <div className="relative">
-                      {userDTO.avatar !== null && (
+                      {circleMember.user.avatar !== null && (
                         <Avatar className="border-2 border-white">
                           <AvatarImage
-                            src={userDTO.avatar}
-                            alt={userDTO.username}
+                            src={circleMember.user.avatar}
+                            alt={circleMember.user.username}
                           />
                           <AvatarFallback>
-                            {userDTO.username.charAt(0)}
+                            {circleMember.user.username.charAt(0)}
                           </AvatarFallback>
                         </Avatar>
                       )}
                     </div>
                     <div className="flex-1 overflow-hidden">
-                      <p className="truncate font-medium">{userDTO.username}</p>
+                      <p className="truncate font-medium flex items-center gap-2">
+                        {circleMember.user.username}
+                        {circleMember.role === 0 && <FaCrown />}
+                        {circleMember.role === 1 && <FaShieldAlt />}
+                      </p>
                     </div>
                   </div>
                 ))}
