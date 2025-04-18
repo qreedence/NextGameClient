@@ -19,9 +19,8 @@ const useSuggestGameToCircle = ({
       await CircleService.suggestGame(circleId, gameId, gameName, gameCoverUrl);
       return circleId;
     },
-    onSuccess: async (circleId) => {
-      console.log("Successfully suggested game, invalidating:", circleId);
-      await queryClient.invalidateQueries({
+    onSettled: async (circleId) => {
+      queryClient.invalidateQueries({
         queryKey: ["suggestedGames", circleId],
       });
     },

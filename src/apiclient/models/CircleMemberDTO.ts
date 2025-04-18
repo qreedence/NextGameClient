@@ -9,5 +9,6 @@ export type CircleMemberDTO = {
     role: CircleMemberRole;
     joinedAt?: string;
     leftAt?: string | null;
+    circleId?: string;
 };
 

@@ -14,7 +14,8 @@ import CircleOptionsDropdown from "./CircleOptionsDropdown";
 import CircleInviteDialog from "./CircleInviteDialog";
 import { CircleDTO } from "@/apiclient";
 import CircleSuggestions from "./CircleSuggestions";
-import { FaCrown, FaShieldAlt } from "react-icons/fa";
+import { FaArchive, FaCrown, FaShieldAlt } from "react-icons/fa";
+import { toast } from "sonner";
 
 interface CircleComponent {
   circleDTO: CircleDTO;
@@ -38,7 +39,7 @@ const CircleComponent = ({ circleDTO }: CircleComponent) => {
       <div className="container grid gap-6 py-6 xl:grid-cols-[1fr_350px]">
         <div className="space-y-6">
           <Tabs defaultValue="current" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="current" className="flex items-center gap-2">
                 <Gamepad2 className="size-5" />
                 <span>Currently Playing</span>
@@ -46,6 +47,10 @@ const CircleComponent = ({ circleDTO }: CircleComponent) => {
               <TabsTrigger value="rotation" className="flex items-center gap-2">
                 <RotateCw className="size-5" />
                 <span>In Rotation</span>
+              </TabsTrigger>
+              <TabsTrigger value="backlog" className="flex items-center gap-2">
+                <FaArchive />
+                <span>Backlog</span>
               </TabsTrigger>
               <TabsTrigger
                 value="suggestions"
@@ -61,7 +66,7 @@ const CircleComponent = ({ circleDTO }: CircleComponent) => {
             <TabsContent value="rotation">
               <p>In rotation.</p>
             </TabsContent>
-            <TabsContent value="suggestions">
+            <TabsContent value="suggestions" className="w-full">
               <CircleSuggestions circleId={circleDTO.id} />
             </TabsContent>
           </Tabs>
@@ -107,7 +112,13 @@ const CircleComponent = ({ circleDTO }: CircleComponent) => {
               </div>
             </CardContent>
             <CardFooter>
-              <Button variant="outline" className="w-full">
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={() => {
+                  toast("Not implemented yet!");
+                }}
+              >
                 Manage Circle
               </Button>
             </CardFooter>

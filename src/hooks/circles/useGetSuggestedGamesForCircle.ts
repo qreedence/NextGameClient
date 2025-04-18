@@ -11,7 +11,7 @@ const useGetSuggestedGamesForCircle = ({
   const { data: suggestedGames, isPending } = useQuery({
     queryKey: ["suggestedGames", circleId],
     queryFn: async () => {
-      return await CircleService.getSuggestedGames(circleId);
+      return (await CircleService.getSuggestedGames(circleId)) ?? [];
     },
   });
 

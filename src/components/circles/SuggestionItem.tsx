@@ -18,6 +18,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip";
+import CircleGameOptionsDropdown from "./CircleGameOptionsDropdown";
 
 interface SuggestionItemProps {
   gameSuggestion: GameSuggestionDTO;
@@ -45,12 +46,34 @@ const SuggestionItem = ({ gameSuggestion }: SuggestionItemProps) => {
   );
 
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col min-w-78">
       <CardHeader>
-        <CardTitle className="line-clamp-1 font-black text-2xl">
-          <Link to={`/game/${gameSuggestion.gameId}`}>
+        <CardTitle className="line-clamp-1 flex justify-between">
+          <Link
+            className="font-black text-2xl"
+            to={`/game/${gameSuggestion.gameId}`}
+          >
             {gameSuggestion.gameName}
           </Link>
+
+          {/* CurrentlyPlaying = 1,
+              InRotation = 2,
+              Backlog = 3,
+              Played = 4,
+              Finished = 5,
+              Abandoned = 6, */}
+
+          <CircleGameOptionsDropdown
+            circleId={gameSuggestion.circleId!}
+            gameId={gameSuggestion.gameId!}
+            gameName={gameSuggestion.gameName!}
+            gameCoverUrl={gameSuggestion.gameCoverUrl!}
+            players={
+              gameSuggestion.votes?.map((vote) => vote.user.username) ?? []
+            }
+            gameStatus={1}
+            suggestedBy={gameSuggestion.suggestedBy!}
+          />
         </CardTitle>
         <CardDescription className="flex items-center gap-1 text-xs">
           <Sparkles className="h-3 w-3" />

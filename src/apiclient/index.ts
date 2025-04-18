@@ -7,8 +7,10 @@ export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
+export type { AddGameToCircleRequestDTO } from './models/AddGameToCircleRequestDTO';
 export type { ChangePasswordDTO } from './models/ChangePasswordDTO';
 export type { CircleDTO } from './models/CircleDTO';
+export type { CircleGameDTO } from './models/CircleGameDTO';
 export type { CircleInvitationDTO } from './models/CircleInvitationDTO';
 export type { CircleMemberDTO } from './models/CircleMemberDTO';
 export type { CircleMemberRole } from './models/CircleMemberRole';
@@ -22,6 +24,7 @@ export type { FriendshipStatusDTO } from './models/FriendshipStatusDTO';
 export type { GameDTO } from './models/GameDTO';
 export type { GameLinks } from './models/GameLinks';
 export type { GameSearchResultDTO } from './models/GameSearchResultDTO';
+export type { GameStatus } from './models/GameStatus';
 export type { GameSuggestionDTO } from './models/GameSuggestionDTO';
 export type { GameVoteDTO } from './models/GameVoteDTO';
 export type { GameVoteStatus } from './models/GameVoteStatus';

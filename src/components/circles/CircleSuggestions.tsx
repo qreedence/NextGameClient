@@ -17,27 +17,37 @@ const CircleSuggestions = ({ circleId }: CircleSuggestionsProps) => {
   const { suggestedGames, isPending } = useGetSuggestedGamesForCircle({
     circleId,
   });
+
+  if (!suggestedGames || suggestedGames.length === 0) {
+    return <div className="py-4 text-center">No suggestions yet</div>;
+  }
+
   return (
-    <div className="flex items-center justify-center py-4">
-      {isPending && <PulseLoader size={5} color="white" />}
-      {suggestedGames?.length && suggestedGames?.length > 0 && (
-        <Carousel
-          opts={{
-            align: "start",
-          }}
-          className="my-4 w-full"
-        >
-          <CarouselContent className="flex">
-            {suggestedGames?.map((suggestion) => (
-              <CarouselItem key={suggestion.id} className="basis-1/3">
-                <SuggestionItem gameSuggestion={suggestion} />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      )}
+    <div className="py-4 w-full">
+      <div className="relative w-full">
+        {isPending && <PulseLoader size={5} color="white" />}
+        {suggestedGames?.length && suggestedGames?.length > 0 && (
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="flex gap-2">
+              {suggestedGames?.map((suggestion) => (
+                <CarouselItem
+                  key={suggestion.id}
+                  className="flex-none basis-[calc(33.333%-0.667rem)] min-w-0"
+                >
+                  <SuggestionItem gameSuggestion={suggestion} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
+        )}
+      </div>
     </div>
   );
 };

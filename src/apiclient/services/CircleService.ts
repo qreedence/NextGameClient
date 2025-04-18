@@ -2,7 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { AddGameToCircleRequestDTO } from '../models/AddGameToCircleRequestDTO';
 import type { CircleDTO } from '../models/CircleDTO';
+import type { CircleGameDTO } from '../models/CircleGameDTO';
 import type { CircleInvitationDTO } from '../models/CircleInvitationDTO';
 import type { GameSuggestionDTO } from '../models/GameSuggestionDTO';
 import type { GameVoteStatus } from '../models/GameVoteStatus';
@@ -90,6 +92,39 @@ export class CircleService {
             query: {
                 'gameSuggestionId': gameSuggestionId,
                 'gameVoteStatus': gameVoteStatus,
+            },
+        });
+    }
+    /**
+     * Adds a game to a list in a circle.
+     * @param requestBody
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static addGame(
+        requestBody: AddGameToCircleRequestDTO,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/circle/add-game',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
+     * Get all games for circle.
+     * @param circleId
+     * @returns CircleGameDTO OK
+     * @throws ApiError
+     */
+    public static getCircleGames(
+        circleId?: string,
+    ): CancelablePromise<Array<CircleGameDTO>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/circle/games',
+            query: {
+                'circleId': circleId,
             },
         });
     }
