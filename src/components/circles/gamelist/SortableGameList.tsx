@@ -15,27 +15,23 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import GameListItem from "./GameListItem";
+import { CircleGameDTO } from "@/apiclient";
+import { toast } from "sonner";
 
 interface GameListProps {
-  title: string;
-  circleId: number;
-  listType: "currentlyPlaying" | "backlog";
-  games: CircleGame[];
-  onGamesReordered?: (games: CircleGame[]) => void;
+  circleId: string;
+  games: CircleGameDTO[];
+  onGamesReordered?: (games: CircleGameDTO[]) => void;
 }
 
 export function GameList({
-  title,
-  circleId,
-  listType,
   games: initialGames,
   onGamesReordered,
 }: GameListProps) {
-  // Sort initial games by displayOrder
   const sortedInitialGames = [...initialGames].sort(
-    (a, b) => a.displayOrder - b.displayOrder
+    (a, b) => a.displayOrder! - b.displayOrder!
   );
-  const [games, setGames] = useState<CircleGame[]>(sortedInitialGames);
+  const [games, setGames] = useState<CircleGameDTO[]>(sortedInitialGames);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -61,7 +57,7 @@ export function GameList({
         }));
 
         // Persist changes to backend
-        saveGameOrder(circleId, listType, updatedGames);
+        saveGameOrder();
 
         // Call the callback if provided
         if (onGamesReordered) {
@@ -73,44 +69,24 @@ export function GameList({
     }
   }
 
-  async function saveGameOrder(
-    circleId: number,
-    listType: string,
-    games: CircleGame[]
-  ) {
-    try {
-      const response = await fetch("/api/circles/games/reorder", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          circleId: circleId,
-          listType: listType,
-          gameIds: games.map((g) => g.id),
-          displayOrders: games.map((g) => g.displayOrder),
-        }),
-      });
-
-      if (!response.ok) {
-        console.error("Failed to save game order");
-      }
-    } catch (error) {
-      console.error("Error saving game order:", error);
-    }
+  async function saveGameOrder() {
+    //TODO: Implement
+    toast("Not implemented yet!");
   }
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4">{title}</h2>
+    <div className="w-full mx-auto py-8">
+      {/* <h2 className="text-xl font-bold mb-4">{title}</h2> */}
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
         onDragEnd={handleDragEnd}
       >
         <SortableContext
-          items={games.map((game) => game.id)}
+          items={games.map((game) => game.id!)}
           strategy={verticalListSortingStrategy}
         >
-          <div className="space-y-3">
+          <div className="space-y-3 w-[70%] mx-auto">
             {games.map((game) => (
               <GameListItem key={game.id} game={game} />
             ))}
