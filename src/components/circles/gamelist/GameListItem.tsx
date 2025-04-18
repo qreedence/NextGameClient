@@ -9,15 +9,15 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { GripVertical } from "lucide-react";
-import type { CircleGame } from "@/types/game";
+import { CircleGameDTO } from "@/apiclient";
 
 interface SortableGameItemProps {
-  game: CircleGame;
+  game: CircleGameDTO;
 }
 
 const GameListItem = ({ game }: SortableGameItemProps) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: game.id });
+    useSortable({ id: game.id! });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -25,7 +25,7 @@ const GameListItem = ({ game }: SortableGameItemProps) => {
   };
 
   return (
-    <Card ref={setNodeRef} style={style} className="relative">
+    <Card ref={setNodeRef} style={style} className="relative w-full">
       <CardContent className="p-3 flex items-center gap-3">
         <div className="cursor-grab touch-none" {...attributes} {...listeners}>
           <GripVertical className="h-5 w-5 text-muted-foreground" />
@@ -43,28 +43,30 @@ const GameListItem = ({ game }: SortableGameItemProps) => {
           <h3 className="font-medium text-sm">{game.gameName}</h3>
         </div>
 
-        <div className="flex -space-x-2">
-          <TooltipProvider>
-            {game.participants.map((player) => (
-              <Tooltip key={player.id}>
-                <TooltipTrigger asChild>
-                  <Avatar className="h-8 w-8 border-2 border-background">
-                    <AvatarImage
-                      src={player.avatarUrl || "/placeholder.svg"}
-                      alt={player.username}
-                    />
-                    <AvatarFallback>
-                      {player.username.substring(0, 2).toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{player.username}</p>
-                </TooltipContent>
-              </Tooltip>
-            ))}
-          </TooltipProvider>
-        </div>
+        {game.players && (
+          <div className="flex -space-x-2">
+            <TooltipProvider>
+              {game.players.map((player) => (
+                <Tooltip key={player.userId}>
+                  <TooltipTrigger asChild>
+                    <Avatar className="h-8 w-8 border-2 border-background">
+                      <AvatarImage
+                        src={player.avatar || "/placeholder.svg"}
+                        alt={player.username}
+                      />
+                      <AvatarFallback>
+                        {player.username.substring(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{player.username}</p>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
+            </TooltipProvider>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

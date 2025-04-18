@@ -16,6 +16,7 @@ import { CircleDTO } from "@/apiclient";
 import CircleSuggestions from "./CircleSuggestions";
 import { FaArchive, FaCrown, FaShieldAlt } from "react-icons/fa";
 import { toast } from "sonner";
+import { GameList } from "./gamelist/SortableGameList";
 
 interface CircleComponent {
   circleDTO: CircleDTO;
@@ -60,11 +61,35 @@ const CircleComponent = ({ circleDTO }: CircleComponent) => {
                 <span>Suggestions</span>
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="current">
-              <p>Currently playing.</p>
+            <TabsContent value="current" className="w-full">
+              {circleDTO.circleGames && (
+                <GameList
+                  circleId={circleDTO.id}
+                  games={circleDTO.circleGames.filter(
+                    (g) => g.gameStatus === 1
+                  )}
+                />
+              )}
             </TabsContent>
             <TabsContent value="rotation">
-              <p>In rotation.</p>
+              {circleDTO.circleGames && (
+                <GameList
+                  circleId={circleDTO.id}
+                  games={circleDTO.circleGames.filter(
+                    (g) => g.gameStatus === 2
+                  )}
+                />
+              )}
+            </TabsContent>
+            <TabsContent value="backlog">
+              {circleDTO.circleGames && (
+                <GameList
+                  circleId={circleDTO.id}
+                  games={circleDTO.circleGames.filter(
+                    (g) => g.gameStatus === 3
+                  )}
+                />
+              )}
             </TabsContent>
             <TabsContent value="suggestions" className="w-full">
               <CircleSuggestions circleId={circleDTO.id} />
