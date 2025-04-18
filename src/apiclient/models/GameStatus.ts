@@ -2,8 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type ChangePasswordDTO = {
-    oldPassword?: string;
-    newPassword: string;
-};
-
+export type GameStatus = number;

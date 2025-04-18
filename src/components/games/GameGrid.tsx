@@ -34,8 +34,8 @@ const GameGrid = ({ games, title, seeAllUrl }: GameGridProps) => {
         >
           <CarouselContent>
             {games.map((game) => (
-              <CarouselItem className="basis-1/5">
-                <GameGridItem key={`${game.id}-${title}`} game={game} />
+              <CarouselItem key={`${game.id}-${title}`} className="basis-1/5">
+                <GameGridItem game={game} />
               </CarouselItem>
             ))}
           </CarouselContent>

@@ -5,6 +5,7 @@ import useAuth from "../useAuth";
 const useGetCirclesForUser = () => {
   const { userProfile } = useAuth();
   const queryClient = useQueryClient();
+  const { isAuthenticated } = useAuth();
 
   const userName = userProfile?.userName;
 
@@ -13,6 +14,7 @@ const useGetCirclesForUser = () => {
     queryFn: async () => {
       return CircleService.getCirclesByUser();
     },
+    enabled: isAuthenticated,
   });
 
   const invalidateCircles = () => {

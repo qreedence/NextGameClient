@@ -28,7 +28,7 @@ const CircleOptionsDropdown = ({ circleId }: CircleOptionsDropdownProps) => {
         className="w-48 mt-1 bg-background text-foreground"
         align="end"
       >
-        <DropdownMenuItem className="hover:bg-destructive">
+        <DropdownMenuItem className="hover:bg-destructive p-0">
           <Button
             variant="ghost"
             className="w-full flex items-center justify-start hover:bg-destructive"

@@ -17,19 +17,19 @@ const CircleListItem = ({ circleDTO }: CircleListItemProps) => {
         <CardContent>
           <div className="flex -space-x-2 items-center justify-center">
             {circleDTO.activeMembers &&
-              circleDTO.activeMembers.map((userDTO) => (
+              circleDTO.activeMembers.map((circleMember) => (
                 <Avatar
-                  key={userDTO.username}
+                  key={circleMember.user.username}
                   className="border-2 border-white"
                 >
-                  {userDTO?.avatar !== null && (
+                  {circleMember.user?.avatar !== null && (
                     <>
                       <AvatarImage
-                        src={userDTO?.avatar}
-                        alt={userDTO?.username}
+                        src={circleMember.user?.avatar}
+                        alt={circleMember.user?.username}
                       />
                       <AvatarFallback>
-                        {userDTO?.username.charAt(0)}
+                        {circleMember.user?.username.charAt(0)}
                       </AvatarFallback>
                     </>
                   )}
