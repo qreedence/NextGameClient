@@ -10,6 +10,13 @@ import {
 } from "@/components/ui/tooltip";
 import { GripVertical } from "lucide-react";
 import { CircleGameDTO } from "@/apiclient";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import CircleGameDetails from "./CircleGameDetails";
 
 interface SortableGameItemProps {
   game: CircleGameDTO;
@@ -32,15 +39,38 @@ const GameListItem = ({ game }: SortableGameItemProps) => {
         </div>
 
         <div className="h-16 w-12 rounded overflow-hidden flex-shrink-0">
-          <img
-            src={game.gameCoverUrl || "/placeholder.svg"}
-            alt={`${game.gameName} cover`}
-            className="h-full w-full object-cover"
-          />
+          <Dialog>
+            <DialogTitle className="sr-only">
+              Information about this game.
+            </DialogTitle>
+            <DialogTrigger>
+              <img
+                src={game.gameCoverUrl || "/placeholder.svg"}
+                alt={`${game.gameName} cover`}
+                className="h-full w-full object-cover hover:cursor-pointer"
+              />
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl w-full">
+              <CircleGameDetails game={game} />
+            </DialogContent>
+          </Dialog>
         </div>
 
         <div className="flex-grow">
-          <h3 className="font-medium text-sm">{game.gameName}</h3>
+          <Dialog>
+            <DialogTitle className="sr-only">
+              Information about this game.
+            </DialogTitle>
+
+            <DialogTrigger>
+              <h3 className="font-medium text-sm hover:cursor-pointer">
+                {game.gameName}
+              </h3>
+            </DialogTrigger>
+            <DialogContent className="max-w-3xl w-full">
+              <CircleGameDetails game={game} />
+            </DialogContent>
+          </Dialog>
         </div>
 
         {game.players && (
