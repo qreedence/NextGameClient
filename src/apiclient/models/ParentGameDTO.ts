@@ -3,14 +3,10 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { GameCoverDTO } from './GameCoverDTO';
-export type GameSearchResultDTO = {
+export type ParentGameDTO = {
     id?: number;
-    name?: string | null;
+    name?: string;
+    slug?: string;
     cover?: GameCoverDTO;
-    coverUrl?: string;
-    first_release_date?: number | null;
-    firstReleaseDate?: string;
-    aggregated_rating?: number;
-    aggregated_rating_count?: number;
 };
 
