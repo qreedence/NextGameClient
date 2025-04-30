@@ -8,7 +8,7 @@ interface ChangeGameStatusProps {
 const useChangeGameStatus = ({ circleGameId }: ChangeGameStatusProps) => {
   const { mutate: changeGameStatus, isPending } = useMutation({
     mutationFn: async (gameStatus: GameStatus) => {
-      CircleService.changeGameStatus(circleGameId, gameStatus);
+      return await CircleService.changeGameStatus(circleGameId, gameStatus);
     },
   });
 

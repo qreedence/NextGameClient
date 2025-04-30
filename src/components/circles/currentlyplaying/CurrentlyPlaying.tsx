@@ -8,7 +8,9 @@ interface CurrentlyPlayingProps {
 
 const CurrentlyPlaying = ({ circleId, games }: CurrentlyPlayingProps) => {
   if (circleId) {
-    return <GameList circleId={circleId} games={games} />;
+    return (
+      <GameList circleId={circleId} games={games} title="Currently Playing" />
+    );
   }
 };
 

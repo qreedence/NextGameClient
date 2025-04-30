@@ -11,7 +11,7 @@ const NavBar = () => {
 
   if (isAuthenticated !== undefined)
     return (
-      <div className="flex shadow-sm py-4 px-8 items-center mb-8">
+      <div className="flex shadow-sm py-4 px-8 items-center">
         <div className="flex-1">
           <Link to="/" className="btn btn-ghost text-xl font-bold">
             Home
