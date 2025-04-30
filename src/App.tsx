@@ -35,7 +35,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <div className="bg-background pb-8 min-h-screen w-full">
+        <div className="bg-background min-h-screen w-full">
           <NavBar />
           <div className="md:px-[20%]">
             <Routes>
@@ -60,11 +60,17 @@ function App() {
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/friends" element={<Friends />} />
                 <Route path="/circles" element={<Circles />} />
-                <Route path="/c/:circleId" element={<CirclePage />} />
               </Route>
             </Routes>
-            <Toaster />
           </div>
+
+          <Routes>
+            <Route element={<RedirectLoggedOut />}>
+              <Route path="/c/:circleId" element={<CirclePage />} />
+            </Route>
+          </Routes>
+
+          <Toaster />
         </div>
       </ThemeProvider>
     </QueryClientProvider>

@@ -20,6 +20,7 @@ import { toast } from "sonner";
 
 interface GameListProps {
   circleId: string;
+  title: string;
   games: CircleGameDTO[];
   onGamesReordered?: (games: CircleGameDTO[]) => void;
 }
@@ -27,6 +28,7 @@ interface GameListProps {
 export function GameList({
   games: initialGames,
   onGamesReordered,
+  title,
 }: GameListProps) {
   const sortedInitialGames = [...initialGames].sort(
     (a, b) => a.displayOrder! - b.displayOrder!
@@ -75,8 +77,8 @@ export function GameList({
   }
 
   return (
-    <div className="w-full mx-auto py-8">
-      {/* <h2 className="text-xl font-bold mb-4">{title}</h2> */}
+    <div className="w-full py-8">
+      <h2 className="text-xl font-bold mb-4">{title}</h2>
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
@@ -86,7 +88,7 @@ export function GameList({
           items={games.map((game) => game.id!)}
           strategy={verticalListSortingStrategy}
         >
-          <div className="space-y-3 w-[70%] mx-auto">
+          <div className="space-y-3 w-full mx-auto">
             {games.map((game) => (
               <GameListItem key={game.id} game={game} />
             ))}

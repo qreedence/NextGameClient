@@ -4,6 +4,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuPortal,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import useChangeGameStatus from "@/hooks/circles/useChangeGameStatus";
@@ -54,32 +55,34 @@ const GameStatusDropdown = ({
           {statusInfo.text}
         </Badge>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="z-[60]">
-        <DropdownMenuItem onClick={() => handleStatusChange(1)}>
-          <div className="h-2 w-2 rounded-full bg-green-500 mr-2"></div>
-          Currently Playing
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleStatusChange(2)}>
-          <div className="h-2 w-2 rounded-full bg-blue-500 mr-2"></div>
-          In Rotation
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleStatusChange(3)}>
-          <div className="h-2 w-2 rounded-full bg-yellow-500 mr-2"></div>
-          Backlog
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleStatusChange(4)}>
-          <div className="h-2 w-2 rounded-full bg-purple-500 mr-2"></div>
-          Played
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleStatusChange(5)}>
-          <div className="h-2 w-2 rounded-full bg-teal-500 mr-2"></div>
-          Finished
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => handleStatusChange(6)}>
-          <div className="h-2 w-2 rounded-full bg-red-500 mr-2"></div>
-          Abandoned
-        </DropdownMenuItem>
-      </DropdownMenuContent>
+      <DropdownMenuPortal>
+        <DropdownMenuContent>
+          <DropdownMenuItem onClick={() => handleStatusChange(1)}>
+            <div className="h-2 w-2 rounded-full bg-green-500 mr-2"></div>
+            Currently Playing
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => handleStatusChange(2)}>
+            <div className="h-2 w-2 rounded-full bg-blue-500 mr-2"></div>
+            In Rotation
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => handleStatusChange(3)}>
+            <div className="h-2 w-2 rounded-full bg-yellow-500 mr-2"></div>
+            Backlog
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => handleStatusChange(4)}>
+            <div className="h-2 w-2 rounded-full bg-purple-500 mr-2"></div>
+            Played
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => handleStatusChange(5)}>
+            <div className="h-2 w-2 rounded-full bg-teal-500 mr-2"></div>
+            Finished
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => handleStatusChange(6)}>
+            <div className="h-2 w-2 rounded-full bg-red-500 mr-2"></div>
+            Abandoned
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenuPortal>
     </DropdownMenu>
   );
 };

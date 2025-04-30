@@ -37,7 +37,7 @@ const CircleSuggestions = ({ circleId }: CircleSuggestionsProps) => {
               {suggestedGames?.map((suggestion) => (
                 <CarouselItem
                   key={suggestion.id}
-                  className="flex-none basis-[calc(33.333%-0.667rem)] min-w-0"
+                  className="flex-none basis-[calc(33.333%-0.667rem)] min-w-0 mx-4"
                 >
                   <SuggestionItem gameSuggestion={suggestion} />
                 </CarouselItem>
